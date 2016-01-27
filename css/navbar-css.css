@@ -1,0 +1,18 @@
+html{
+	box-sizing:border-box;
+}
+.container{
+	display:flex;
+	align-items:center;
+}
+.navbar{
+	background-color:black;
+	color:white;
+	width:100%;
+}
+
+.nav-icon{
+	display:flex;
+	height:150px;
+	width:150px;
+}
