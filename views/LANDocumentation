@@ -1,0 +1,108 @@
+header {
+  text-align: center;
+}
+
+#contentTitle {
+  width: 40%;
+  margin: 0 auto;
+  height: 100%;
+  border: 1px solid;
+  background-color: steelblue;
+}
+
+#contents {
+  width: 40%;
+  margin: 0 auto;
+  height: 100%;
+  border: 1px solid;
+  border-top: 0px;
+}
+
+#title {
+  text-align: center;
+  font-weight: bold;
+}
+<body>
+  <header>LAN Documentation</header>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Key Resource
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      API Calls for CRUD
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Authentication
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Error Handling
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Example of Angular JS
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Use Case
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Major Project Testable Requirements
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Mock-up
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+  <br>
+  <div id="contentTitle">
+    <div id='title'>
+      Project Tasks and Project Task Status
+    </div>
+  </div>
+  <div id='contents'>
+    QWERTY
+  </div>
+</body>
