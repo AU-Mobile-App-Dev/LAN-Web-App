@@ -1,0 +1,223 @@
+@import url(https://fonts.googleapis.com/css?family=Bangers);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic);
+
+html{
+	box-sizing:border-box;
+	background-color:#000000;
+	color:#ffffff;
+	font-family: 'Open Sans', sans-serif;
+}
+h1 {
+	font-family: 'Bangers', cursive;
+	font-size:55px;
+	text-align:center;
+}
+h2 {
+  font-family: 'Bangers', cursive;
+  font-size:40px;
+  text-align:center;
+}
+strong {
+  color:#009999;
+}
+a:link, a:visited, a:active {
+  color:#009999;
+  text-decoration:none;
+}
+a:hover {
+  font-weight:bold;
+  color:#fefefe;
+}
+.container{
+	display: -webkit-flex; /* Safari */
+	display:flex;
+	align-items:center;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:center;
+  align-content:space-between;
+}
+.content {
+  display: -webkit-flex; /* Safari */
+  display:flex;
+  background-image:url('../images/mobile_pattern.jpg');
+  background-attachment: fixed;
+  width:100%;
+  height:100%;
+  align-items:center;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-around;
+  align-content:flex-start;
+}
+.navbar{
+	background-color:black;
+	color:white;
+	width:100%;
+  flex-direction:row;
+  flex-wrap:nowrap;
+  justify-content:space-around;
+  align-content:flex-start;
+}
+.nav-icon{
+	display:flex;
+	height:150px;
+	width:200px;
+}
+.nav-link {
+  font-family: 'Bangers', cursive;
+  font-size:40px;
+  text-align:center;
+  text-decoration:none;
+}
+.nav-link a:link, .nav-link a:visited, .nav-link a:active {
+    text-decoration:none;
+    color:#009999;
+}
+.nav-link a:hover {
+    font-size:60px;
+}
+.nav-username {
+  text-align:right;
+}
+#login {
+	background-color:#000000;
+	width: 100%; 
+	height: 100%;
+	align-items:center;
+  align-content:stretch;
+	justify-content:center;
+	-webkit-flex-direction: column; /* Safari */
+  	flex-direction:         column;
+  	text-align:center;
+}
+#login > figure {
+  animation: imageAnimation 30s linear infinite 0s;
+  backface-visibility: hidden;
+  background-size: cover;
+  background-position: center center;
+  color: transparent;
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+}
+
+#login > figure:nth-child(1) {
+  background-image: url('../images/splash_bg.jpg');
+}
+#login > figure:nth-child(2) {
+  animation-delay: 6s;
+  background-image: url('http://2e130c55e0c2763c8a20-c7a4d0feffd26319b59c92c4aecae366.r18.cf1.rackcdn.com/7edce0da5f491acb0145c56aa1abf10d721be11c.jpg');
+}
+#login > figure:nth-child(3) {
+  animation-delay: 12s;
+  background-image: url('http://p1.pichost.me/i/74/1987025.jpg?dl=1');
+}
+
+@keyframes imageAnimation {
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  8% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  17% {
+    opacity: 1
+  }
+  25% {
+    opacity: 0
+  }
+  100% {
+    opacity: 0
+  }
+}
+.loginbox {
+	padding:20px;
+	 /* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(0, 0, 0);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    border-radius: 25px;
+	width:60%;
+	margin:auto;
+	z-index:1000;
+}
+.box {
+  margin: auto;
+	padding:20px;
+  text-align:center;
+}
+.user-side {
+  margin: auto; 
+  background-color:#1a1a1a;
+  border-radius:25px;
+  padding:20px;
+  width:25%;
+}
+.newsfeed-update {
+  margin: auto;
+  background-color:#1a1a1a;
+  border-radius:25px; 
+  width:70%;
+  text-align:justify;
+  padding:10px;
+  margin-bottom:20px;
+}
+.login-nav {
+	background-color:#000000;
+	padding:10px;
+	color:#ffffff;
+	margin-bottom:5px;
+	border:1px solid #ffffff;
+  font-size:16px;
+  border-radius:10px;
+}
+.general {
+  margin: auto; 
+  background-color:#1a1a1a;
+  border-radius:25px;
+  padding:20px;
+  width:80%;
+}
+.latest {
+  background-color:#000000;
+  padding:10px;
+  border-radius:25px;
+  text-align:center;
+  margin:5px;
+}
+.lan-btn {
+  -webkit-border-radius: 20;
+  -moz-border-radius: 20;
+  border-radius: 20px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  background: #000000;
+  padding: 5px 10px 5px 10px;
+  border: solid #ffffff 1px;
+  text-decoration: none;
+  margin:3px;
+}
+.lan-btn:hover {
+  background: #009999;
+  text-decoration: none;
+}
+.friends {
+  display: -webkit-flex; /* Safari */
+  display:flex;
+  align-items:center;
+  flex-direction:row;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-content:center;
+}
