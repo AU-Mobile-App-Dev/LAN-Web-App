@@ -23,6 +23,11 @@ angular.module('lanApp')
 
 
 .service('authService', function($http, $location){
+    var currentUser;
+    
+    this.getCurrentUser = function(){
+        return currentUser;
+    }
     this.authenticateCreds = function(userObject, callback){
         $http({
             method: 'POST',
@@ -30,6 +35,8 @@ angular.module('lanApp')
             data:{username: userObject.username, password:userObject.password}
         }).then(function successCallback(response) {
             if(response.data.result === "success"){
+                currentUser.username = userObject.username;
+                sessionStorage.setItem('key', response.data.session)
                 $location.path('home');
             }
             else{
@@ -42,11 +49,27 @@ angular.module('lanApp')
         });
     }
     
-   this.checkSession = function(session, callback){
-       
+   this.checkSession = function(){
+       $http({
+            method: 'POST',
+            url: uri+"/sessions/verify",
+            data:{session: sessionStorage.getItem('key')}
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            if(response.data.result === "success"){
+            }
+            else{
+                $location.path('');
+            }
+
+        }, function errorCallback(response) {
+            
+            console.error(response.data);
+        });
    }
    
    this.clearSession = function(){
-       
+       sessionStorage.removeItem('key');
    }
+   
 })

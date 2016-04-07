@@ -20,6 +20,11 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
     }
 })
 
+.controller('homeController', function($scope, authService){
+    authService.checkSession();
+    $scope.currentUser = authService.getCurrentUser;
+})
+
 .config(function($routeProvider){
     $routeProvider
         .when('/', {
@@ -33,7 +38,8 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
         })
         
         .when('/home', {
-            templateUrl: 'home.html'
+            templateUrl: 'home.html',
+            controller: 'homeController'
         })
         
         .when('/regsuccess', {

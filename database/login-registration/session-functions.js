@@ -24,18 +24,23 @@ exports.setSession = function(session, userId){
     });
 }
 
-exports.getSession = function(username, session, callback){
+exports.getSession = function(session, callback){
+    console.log("session passed "+ session);
+    if(session === null){
+        callback(false);
+    }
+    else{
      connectionpool.getConnection(function (err, connection) {
         if (err) {
             console.error('CONNECTION error: ', err);
-            if(err) return false;
         } else {
         
-                connection.query("SELECT session from users WHERE username =?", username, function (err, row) {
+                connection.query("SELECT * from users WHERE session =?", session, function (err, row) {
+                    console.log(row);
                     if (err) {
                         console.log(err);
                     }
-                    if(row[0].session = session){
+                    else if(row.length > 0){
                         callback(true);
                     }
                     else{
@@ -47,4 +52,5 @@ exports.getSession = function(username, session, callback){
         }
         
     });
+    }
 }
