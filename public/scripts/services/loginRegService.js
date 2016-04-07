@@ -25,9 +25,10 @@ angular.module('lanApp')
 .service('authService', function($http, $location){
     var currentUser;
     
-    this.getCurrentUser = function(){
-        return currentUser;
+    this.getCurrentUser = function(callback){
+        callback(currentUser);
     }
+    
     this.authenticateCreds = function(userObject, callback){
         $http({
             method: 'POST',
@@ -35,7 +36,7 @@ angular.module('lanApp')
             data:{username: userObject.username, password:userObject.password}
         }).then(function successCallback(response) {
             if(response.data.result === "success"){
-                currentUser.username = userObject.username;
+                currentUser = userObject.username;
                 sessionStorage.setItem('key', response.data.session)
                 $location.path('home');
             }

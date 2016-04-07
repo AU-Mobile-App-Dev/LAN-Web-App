@@ -11,13 +11,16 @@ exp.getNewsFeedBySession = function(session, callback){
             callback(503);
         }
         else{
-        connection.query('SELECT * FROM newsfeed WHERE user_id=(SELECT id FROM users WHERE session = ?)', session
+        connection.query('SELECT newsfeed.id, user_id, username, timestamp, message, likes FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE session = ?) AND users.session = ? ORDER BY timestamp DESC', [session, session]
         , function (err, results) {
-            if (err){callback(500)}
-             else if(result.length === 0){
+            if (err){
+                callback(500);
+                console.log(err);
+                }
+             else if(results.length === 0){
                 callback(204);
             }
-            else{callback(result);}
+            else{callback(results);}
 
         });
         }

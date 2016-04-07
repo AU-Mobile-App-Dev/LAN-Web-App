@@ -20,9 +20,30 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
     }
 })
 
-.controller('homeController', function($scope, authService){
+.controller('homeController', function($scope, authService, newsfeedService){
     authService.checkSession();
-    $scope.currentUser = authService.getCurrentUser;
+    $scope.newsfeedArray = [];
+    
+    authService.getCurrentUser(function(currentUser){
+        $scope.username = currentUser;
+    });
+    
+    newsfeedService.getNewsfeed(function(result){
+        $scope.newsfeedArray = result;
+    });
+    
+    $scope.postNews = function(){
+        newsfeedService.postNews($scope.newsfeedMessage, function(result){
+            if(result){
+                 newsfeedService.getNewsfeed(function(result){
+                    $scope.newsfeedArray = result;
+                    $scope.newsfeedMessage = "";
+                });
+            }
+        });
+    }
+    
+    
 })
 
 .config(function($routeProvider){
