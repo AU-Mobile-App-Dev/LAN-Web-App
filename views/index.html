@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="lanApp">
 <head>
 	<title>LAN Social Network - Connecting Gamers</title>
-<link href='../css/lan-style.css' rel='stylesheet'>
-<link href='../css/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
+<link href='/css/lan-style.css' rel='stylesheet'>
+<link href='/css/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
 
 
 </head>
-<body>
+<body ng-view>
 	<div class="container" id="login">
 		      <figure></figure>
       <figure></figure>
       <figure></figure>
-		 <div class="loginbox"><img src='../images/lan-logo1.png' style="width:30%;border-radius: 25px;"><h1>Connect With Local Gamers Now!</h1>
+		 <div class="loginbox"><img src='/images/lan-logo1.png' style="width:30%;border-radius: 25px;"><h1>Connect With Local Gamers Now!</h1>
 		 	<h2><i class="fa fa-gamepad"></i></h2>
 		 	The social network that is <strong>all about gaming</strong>.<br/>
 		 	Meet new friends, discuss your favorites, post about your progress, and more.<br/><br/>
@@ -22,18 +22,24 @@
 		 	<h2><i class="fa fa-arrow-circle-right"></i> Register</h2>
 
 		 	<form>
-		 		Username: <input type="text" name="username" class="login-nav"></input><br/>
-		 		Password: <input type="text" name="password" class="login-nav"></input><br/>
-		 		ZIP Code (US Only): <input type="text" name="zip"class="login-nav"></input><br/>
-		 		<input type="submit" value="Register" class="login-nav">
+		 		Username: <input type="text" ng-model="username" placeholder="xXsephirothl337Xx" class="login-nav"></input><br/>
+		 		Password: <input type="password" ng-model="password" placeholder="123456" class="login-nav"></input><br/>
+		 		ZIP Code (US Only): <input type="text" ng-model="zip" placeholder="50542" class="login-nav"></input><br/>
+                Email: <input type="email" ng-model="email" placeholder="user@email.com" class="login-nav"></input><br/>
+		 		<button ng-click="registerUser()" class="login-nav">Submit</button>
 		 	</form>
 		 	<br/>
-		 	<i class="fa fa-question-circle"></i> Already have an account?<br/><a href="login.html">Click here to login</a>.<br/><br/>
+		 	<i class="fa fa-question-circle"></i> Already have an account?<br/><a href="#/login">Click here to login</a><br/><br/>
 		 </div>
 	</div>
-<script src='../extensions/angular/angular.min.js'></script>
-<script src='../extensions/angular/angular-resource.min.js'></script>
-<script src='../extensions/angular/route.js'></script>
+<script src='/angular/angular.min.js'></script>
+<script src='/angular/route.js'></script>
+<script src='/angular/resource.min.js'></script>
+<script src='/scripts/app.js'></script>
+<script src='/scripts/services/loginRegService.js'></script>
+<script src='/scripts/objects/users.js'></script>
+
+
 </body>
 
 </html>
