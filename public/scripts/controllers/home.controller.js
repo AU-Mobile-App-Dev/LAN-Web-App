@@ -21,6 +21,11 @@ angular.module('lanApp')
         });
     }
     
+    $scope.deleteNews = function(index){
+        newsfeedService.deleteNews($scope.newsfeedArray[index].id);
+       $scope.newsfeedArray.splice(index, 1);
+    }
+    
     $scope.logout = function(){
     sessionService.destroySession();
     }

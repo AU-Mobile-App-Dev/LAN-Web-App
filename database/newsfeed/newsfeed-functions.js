@@ -146,15 +146,14 @@ exp.removeNewsfeedItemByApikey = function(userObject, callback){
     });   
 }
 
-exp.removeNewsfeedItemBySession = function(userObject, callback){
+exp.removeNewsfeedItemBySession = function(newsfeedObject, callback){
      connectionpool.getConnection(function (err, connection) {
         if(err){
            callback(503);
         }
         else{
-            userObject.apikey = passwordFunctions.hashString(userObject.apikey).toString();
         connection.query('DELETE FROM newsfeed WHERE id = ? AND user_id = (SELECT id FROM users WHERE session = ?)',
-        [userObject.newsfeedItemID, userObject.session], function (err, results) {
+        [newsfeedObject.newsfeedItemID, newsfeedObject.session], function (err, results) {
             if (err) {callback(500);}
             else if(results.affectedRows === 0){
                 callback(204);

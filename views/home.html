@@ -53,7 +53,7 @@
 		<div class='box'>
 			<div class="newsfeed-update" ng-animate="'animate'" ng-repeat="newsItem in newsfeedArray">
 				<img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><h3>{{newsItem.username}} // <em>{{newsItem.status === 0 ? "Offline" : "Online"}}</em></h3>
-				<button class="lan-btn">Send Message</button><button value="{{newsItem.user_id}}" class="lan-btn">View Profile</button><br/>
+				<button class="lan-btn">Send Message</button><button ng-click=deleteNews($index) class="lan-btn">Delete Post</button><button value="{{newsItem.user_id}}" class="lan-btn">View Profile</button><br/>
 				<em>{{newsItem.message}}</em><br/><br/>
 		</div>
 

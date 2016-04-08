@@ -156,14 +156,14 @@ module.exports = function(app) {
     // =======================
     // DELETE REQUESTS =======
     // =======================
-    app.delete('/newsfeed/delete/:id', function(req, res) {
+    app.put('/newsfeed/delete', function(req, res) {
         sessions.getSession(req.body.session, function(result) {
             if (result) {
-                var userObject = {
-                    apikey: req.body.session,
-                    newsfeedItemID: req.params.id
+                var newsfeedObject = {
+                    session: req.body.session,
+                    newsfeedItemID: req.body.newsfeedID
                 }
-                newsfeed.removeNewsfeedItemBySession(userObject, function(result) {
+                newsfeed.removeNewsfeedItemBySession(newsfeedObject, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);

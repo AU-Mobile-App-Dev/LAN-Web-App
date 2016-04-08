@@ -29,4 +29,19 @@ angular.module('lanApp')
             console.error(response.data);
         });
     }
+    
+    this.deleteNews = function(id){
+        console.log("Delete post id: " + id);
+        $http({
+            method: 'PUT',
+            url: uri+"/newsfeed/delete",
+            data:{session: sessionStorage.getItem('key'), newsfeedID: id}
+        }).then(function successCallback(response) {
+          
+
+        }, function errorCallback(response) {
+            
+            console.error(response.data);
+        });
+    }
 })
