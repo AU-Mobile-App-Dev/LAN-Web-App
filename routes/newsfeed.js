@@ -104,7 +104,7 @@ module.exports = function(app) {
     // POST REQUESTS =========
     // =======================
     app.post('/newsfeed', function(req, res) {
-        sessions.verifyKey(req.body.session, function(result) {
+        sessions.getSession(req.body.session, function(result) {
             if (result) {
                 newsfeed.getNewsFeedBySession(req.body.session, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
@@ -128,10 +128,10 @@ module.exports = function(app) {
     // PUT REQUESTS =========
     // =======================
     app.put('/newsfeed/add', function(req, res) {
-        sessions.getSession(req.body.username, req.body.session, function(result) {
+        sessions.getSession(req.body.session, function(result) {
             if (result) {
                  var newsfeedObject = {
-                    session: session,
+                    session: req.body.session,
                     timestamp: new Date().toISOString().slice(0, 19).replace('T', ' '),
                     message: req.body.message
                 }
@@ -156,14 +156,14 @@ module.exports = function(app) {
     // =======================
     // DELETE REQUESTS =======
     // =======================
-    app.delete('/newsfeed/delete/:id', function(req, res) {
-        sessions.verifyKey(req.body.session, function(result) {
+    app.put('/newsfeed/delete', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
             if (result) {
-                var userObject = {
-                    apikey: req.body.session,
-                    newsfeedItemID: req.params.id
+                var newsfeedObject = {
+                    session: req.body.session,
+                    newsfeedItemID: req.body.newsfeedID
                 }
-                newsfeed.removeNewsfeedItemBySession(userObject, function(result) {
+                newsfeed.removeNewsfeedItemBySession(newsfeedObject, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);

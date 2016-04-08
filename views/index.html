@@ -3,12 +3,13 @@
 <head>
 	<title>LAN Social Network - Connecting Gamers</title>
 <link href='/css/lan-style.css' rel='stylesheet'>
+<link href='/css/newsfeed-animate.css' rel='stylesheet'>
 <link href='/css/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
 
 
 </head>
 <body ng-view>
-	<div class="container" id="login">
+<div class="container" id="login">
 		      <figure></figure>
       <figure></figure>
       <figure></figure>
@@ -19,25 +20,34 @@
 
 		 	<hr/>
 
-		 	<h2><i class="fa fa-arrow-circle-right"></i> Register</h2>
+		 	<h2><i class="fa fa-arrow-circle-right"></i> Login</h2>
 
 		 	<form>
-		 		Username: <input type="text" ng-model="username" placeholder="xXsephirothl337Xx" class="login-nav"></input><br/>
-		 		Password: <input type="password" ng-model="password" placeholder="123456" class="login-nav"></input><br/>
-		 		ZIP Code (US Only): <input type="text" ng-model="zip" placeholder="50542" class="login-nav"></input><br/>
-                Email: <input type="email" ng-model="email" placeholder="user@email.com" class="login-nav"></input><br/>
-		 		<button ng-click="registerUser()" class="login-nav">Submit</button>
+		 		Username: <input type="text" ng-model="username" class="login-nav"></input><br/>
+		 		Password: <input type="password" ng-model="password" class="login-nav"></input><br/>
+		 		<button ng-click="login()" class="login-nav">Login</button>
 		 	</form>
+
 		 	<br/>
-		 	<i class="fa fa-question-circle"></i> Already have an account?<br/><a href="#/login">Click here to login</a><br/><br/>
+
+		 	<i class="fa fa-question-circle"></i> Don't have an account?<br/><a href="#/register">Click here to register</a>.<br/><br/>
+            <i class="fa fa-question-circle"></i>Are you developer wanting to use our REST API?<br/><a href="#/apikey">Click here to get an API key</a>.<br/><br/>
+
 		 </div>
-	</div>
+	</div>	
 <script src='/angular/angular.min.js'></script>
 <script src='/angular/route.js'></script>
 <script src='/angular/resource.min.js'></script>
+<script src='/angular/animate.min.js'></script>
 <script src='/scripts/app.js'></script>
-<script src='/scripts/services/loginRegService.js'></script>
-<script src='/scripts/objects/users.js'></script>
+<script src='/scripts/controllers/login.controller.js'></script>
+<script src='/scripts/controllers/registration.controller.js'></script>
+<script src='/scripts/controllers/home.controller.js'></script>
+<script src='/scripts/services/login.service.js'></script>
+<script src='/scripts/services/registration.service.js'></script>
+<script src='/scripts/services/session.service.js'></script>
+<script src='/scripts/services/newsfeed.service.js'></script>
+<script src='/scripts/services/validation.service.js'></script>
 
 
 </body>
