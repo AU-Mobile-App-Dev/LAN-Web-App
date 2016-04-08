@@ -228,12 +228,12 @@ CREATE TABLE `users` (
   `zip` char(5) NOT NULL,
   `dob` date DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
-  `session` varchar(32) NOT NULL,
+  `session` varchar(64) NOT NULL,
   `api_key` varchar(64) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_status_idx` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,6 +242,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (15,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rob@email.com','60510',NULL,1,'c7b8b825d83371f8e017db6460ae3c47bb78ca0f','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -254,4 +255,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-06 19:27:51
+-- Dump completed on 2016-04-08 14:37:47
