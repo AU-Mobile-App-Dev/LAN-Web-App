@@ -1,8 +1,11 @@
 angular.module('lanApp')
 
-.controller('homeController', function($scope, sessionService, authService, newsfeedService){
-    sessionService.checkSession();
-    $scope.newsfeedArray = [];
+.controller('homeController', function($scope, sessionService, authService, newsfeedService, $location){
+    sessionService.checkSession(function(result){
+    if(result){
+            
+    
+    $scope.newsfeedArray;
     $scope.username = authService.getCurrentUser().username;
 
     
@@ -29,6 +32,10 @@ angular.module('lanApp')
     $scope.logout = function(){
     sessionService.destroySession();
     }
-    
+    }
+    else{
+        $location.path('');//user is not validated to view this route, kick them back to login
+    }
+    });
     
 })

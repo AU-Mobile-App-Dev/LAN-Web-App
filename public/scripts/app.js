@@ -7,12 +7,12 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
     $routeProvider
         .when('/', {
             templateUrl: 'index.html',
-            controller: 'registrationController'
+            controller: 'loginController'
         })
 
-        .when('/login', {
-            templateUrl: 'login.html',
-            controller: 'loginController'
+        .when('/register', {
+            templateUrl: 'register.html',
+            controller: 'registrationController'
         })
         
         .when('/home', {

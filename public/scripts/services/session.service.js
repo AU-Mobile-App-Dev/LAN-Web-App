@@ -2,16 +2,17 @@
  
  .service('sessionService', function($http, $location, authService){
      
-  this.checkSession = function(){
+  this.checkSession = function(callback){
        $http({
             method: 'POST',
             url: uri+"/sessions/verify",
             data:{session: sessionStorage.getItem('key')}
         }).then(function successCallback(response) {
             if(response.data.result === "success"){
+                callback(true);
             }
             else{
-                $location.path('');
+                callback(false);
             }
 
         }, function errorCallback(response) {
@@ -29,7 +30,7 @@
         }).then(function successCallback(response) {
             sessionStorage.removeItem('key');
             console.log("Session destroyed session key stored is now = " + sessionStorage.getItem('key'));
-            $location.path('login');
+            $location.path('');
 
         }, function errorCallback(response) {
             
