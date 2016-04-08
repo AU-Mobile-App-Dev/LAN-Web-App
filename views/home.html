@@ -1,7 +1,7 @@
 
 <div class='container navbar'>
 	<div class="nav-icon">
-	<a href="home.html"><img class='nav-icon' src='../images/lan-logo1.png'></a>
+	<a href="#/home"><img class='nav-icon' src='../images/lan-logo1.png'></a>
 	</div>
 	<div class='nav-link'>
 	<a href='profile.html'>Profile</a>
@@ -16,7 +16,7 @@
 	<a href='messages.html'>Messages</a>
 	</div>
 	<div class='nav-username'>
-	Welcome back, <strong>{{username}}</strong>!<br/><i class="fa fa-sign-out"></i> <a href="#">Logout</a>
+	Welcome back, <strong>{{username}}</strong>!<br/><i class="fa fa-sign-out"></i> <a ng-click="logout()">Logout</a>
 	</div>
 </div>
 <body>
@@ -51,7 +51,7 @@
 
 
 		<div class='box'>
-			<div class="newsfeed-update" ng-repeat="newsItem in newsfeedArray">
+			<div class="newsfeed-update" ng-animate="'animate'" ng-repeat="newsItem in newsfeedArray">
 				<img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><h3>{{newsItem.username}} // <em>{{newsItem.status === 0 ? "Offline" : "Online"}}</em></h3>
 				<button class="lan-btn">Send Message</button><button value="{{newsItem.user_id}}" class="lan-btn">View Profile</button><br/>
 				<em>{{newsItem.message}}</em><br/><br/>

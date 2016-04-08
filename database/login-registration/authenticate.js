@@ -25,7 +25,8 @@ exports.authenticate = function(userObject, callback){
                        session = passwordFunctions.hashString(session).toString();
                        setSession.setSession(session, row[0].id);
                        changeStatus(userObject.username);
-                       callback(true, session);
+                       var resultObject = {result: true, session: session, username: row[0].username, userID: row[0].id};
+                       callback(true, resultObject);
                       
                    }
                     else{

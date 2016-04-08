@@ -13,5 +13,6 @@ module.exports = {
     authenticate: authCreds.authenticate,
     getSession: sessionFunctions.getSession,
     generateKey: apiKeyFunctions.generateKey,
-    verifyKey: apiKeyFunctions.verifyKey
+    verifyKey: apiKeyFunctions.verifyKey,
+    destroySession: sessionFunctions.destroySession
 };
