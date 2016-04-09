@@ -47,14 +47,14 @@ exports.getUserByName= function(username, callback){
     });
 }
 
-exports.getUserByLocation= function(coordinates, callback){
+exports.getUserByLocation= function(zip, callback){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, lat, lon, status FROM users WHERE lat = ? and lon = ?", 
-            [coordinates.lat, coordinates.lon], function (err, results) {
+            connection.query("SELECT username, zip, status FROM users WHERE zip = ?", 
+           zip , function (err, results) {
                 if (err) {
                     console.error(err);
                    callback(500);

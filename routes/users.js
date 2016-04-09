@@ -1,7 +1,6 @@
 var profiles = require('../database/users');
 var sessions = require('../database/login-registration');
 var errorCodes = require('./error-codes.js');
-var geocoder = require('geocoder');
 
 module.exports = function(app) {
     // ===============================
@@ -49,20 +48,10 @@ module.exports = function(app) {
         });
     });
    
-    app.get('/api/users/:location/api=:apikey', function(req, res) {
+    app.get('/api/users/:zip/api=:apikey', function(req, res) {
         sessions.verifyKey(req.params.apikey, function(result) {
             if (result) {
-                geocoder.geocode(req.params.location, function(err, data) {
-                    if (err) {
-                        res.json({
-                            400: "Geocoder could not get the location, please check for syntax errors."
-                        });
-                    } else {
-                        var coordinates = {
-                            lat: data.results[0].geometry.location.lat,
-                            lon: data.results[0].geometry.location.lng
-                        };
-                        profiles.getUserByLocation(coordinates, function(result) {
+                        profiles.getUserByLocation(req.params.zip, function(result) {
                             errorCodes.responseCodeHandler(result, function(foundError, code) {
                                 if (foundError) {
                                     res.json(code);
@@ -71,8 +60,7 @@ module.exports = function(app) {
                                 }
                             })
                         });
-                    }
-                });
+                    
             } else {
                 res.json({
                     403: "Unauthenticated API request for friends list"

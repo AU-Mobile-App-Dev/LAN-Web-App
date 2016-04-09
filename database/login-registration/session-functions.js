@@ -24,8 +24,30 @@ exports.setSession = function(session, userId){
     });
 }
 
+exports.destroySession = function(userID, callback){
+    connectionpool.getConnection(function (err, connection) {
+        if (err) {
+            console.log(err);
+            callback(false);
+        } else {
+        
+                connection.query("UPDATE users SET session = '' WHERE id=?", [userID], function (err, row) {
+                    if (err) {
+                        console.log(err);
+                        callback(false);
+                    }
+                    else{
+                        callback(true);
+                    }
+                    
+                   
+                    connection.release();
+                });
+        }
+    });
+}
+
 exports.getSession = function(session, callback){
-    console.log("session passed "+ session);
     if(session === null){
         callback(false);
     }
@@ -36,7 +58,6 @@ exports.getSession = function(session, callback){
         } else {
         
                 connection.query("SELECT * from users WHERE session =?", session, function (err, row) {
-                    console.log(row);
                     if (err) {
                         console.log(err);
                     }

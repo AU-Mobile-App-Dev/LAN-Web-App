@@ -11,13 +11,16 @@ exp.getNewsFeedBySession = function(session, callback){
             callback(503);
         }
         else{
-        connection.query('SELECT * FROM newsfeed WHERE user_id=(SELECT id FROM users WHERE session = ?)', session
+        connection.query('SELECT newsfeed.id, user_id, username, timestamp, message, likes FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE session = ?) AND users.session = ? ORDER BY timestamp DESC', [session, session]
         , function (err, results) {
-            if (err){callback(500)}
-             else if(result.length === 0){
+            if (err){
+                callback(500);
+                console.log(err);
+                }
+             else if(results.length === 0){
                 callback(204);
             }
-            else{callback(result);}
+            else{callback(results);}
 
         });
         }
@@ -143,15 +146,14 @@ exp.removeNewsfeedItemByApikey = function(userObject, callback){
     });   
 }
 
-exp.removeNewsfeedItemBySession = function(userObject, callback){
+exp.removeNewsfeedItemBySession = function(newsfeedObject, callback){
      connectionpool.getConnection(function (err, connection) {
         if(err){
            callback(503);
         }
         else{
-            userObject.apikey = passwordFunctions.hashString(userObject.apikey).toString();
         connection.query('DELETE FROM newsfeed WHERE id = ? AND user_id = (SELECT id FROM users WHERE session = ?)',
-        [userObject.newsfeedItemID, userObject.session], function (err, results) {
+        [newsfeedObject.newsfeedItemID, newsfeedObject.session], function (err, results) {
             if (err) {callback(500);}
             else if(results.affectedRows === 0){
                 callback(204);

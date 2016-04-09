@@ -1,6 +1,5 @@
 var friendFunctions = require('../database/friends');
 var errorCodes = require('./error-codes.js');
-var geocoder = require('geocoder');
 
 module.exports = function(app) {
     // ===============================

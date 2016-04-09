@@ -16,5 +16,16 @@ app.post('/sessions/verify', function(req, res){
     });
 });
 
+app.post('/sessions/destroy', function(req, res){
+    loginRegFunctions.destroySession(req.body.userID, function(result){
+        if(result){
+            res.json({ result: "success"});           
+        }
+        else{
+            res.json({result: "failed", message: 'Authentication failed.' });
+        }
+    });
+});
+
     
 }

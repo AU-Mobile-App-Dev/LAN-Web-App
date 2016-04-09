@@ -12,6 +12,7 @@ exports.authenticate = function(userObject, callback){
         console.log("authenticating");
         if (err) {
             console.error('CONNECTION error: ', err);
+            callback(500);
         } else {
         
                 connection.query("SELECT * FROM users WHERE username = ?", userObject.username, function (err, row) {
@@ -23,7 +24,9 @@ exports.authenticate = function(userObject, callback){
                        var session = userObject.username + randomstring.generate();
                        session = passwordFunctions.hashString(session).toString();
                        setSession.setSession(session, row[0].id);
-                       callback(true, session);
+                       changeStatus(userObject.username);
+                       var resultObject = {result: true, session: session, username: row[0].username, userID: row[0].id};
+                       callback(true, resultObject);
                       
                    }
                     else{
@@ -41,28 +44,19 @@ exports.authenticate = function(userObject, callback){
    
 }
 
-exports.changeStatus = function(userObject, callback){
+  var changeStatus = function(username){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
-            console.error('CONNECTION error: ', err);
-            if(err) return false;
+           console.log(err);
         } else {
         
-                connection.query("UPDATE users SET status = !status username = ?", userObject.username, function (err, row) {
+                connection.query("UPDATE users SET status = !status WHERE username = ?", username, function (err, row) {
                     if (err) {
                         console.log(err);
                     }
-                   if(passwordFunctions.compareStrings(userObject.password, row[0].password)){
-                       //Generate session id, insert it to the database and return the response
-                       var session = userObject.username + randomstring.generate();
-                       session = passwordFunctions.hashString(session);
-                       setSession.setSession(session.toString(), row[0].id);
-                       callback(true, session);
-                      
-                   }
                     else{
                         
-                        callback(false, null);
+                       console.log(row);
                     }   
                     
                     
