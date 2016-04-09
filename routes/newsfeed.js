@@ -97,6 +97,31 @@ module.exports = function(app) {
             }
         });
     });
+    
+    //added put request for deletion of a resource since AngularJS' $http method does not support DELETE request body
+    app.put('/api/newsfeed/delete/:id/api=:apikey', function(req, res) {
+        sessions.verifyKey(req.params.apikey, function(result) {
+            if (result) {
+                var userObject = {
+                    apikey: req.params.apikey,
+                    newsfeedItemID: req.params.id
+                }
+                newsfeed.removeNewsfeedItemByApikey(userObject, function(result) {
+                    errorCodes.responseCodeHandler(result, function(foundError, code) {
+                        if (foundError) {
+                            res.json(code);
+                        } else {
+                            res.json(result);
+                        }
+                    });
+                });
+            } else {
+                res.json({
+                    403: "Unauthenticated API request for newsfeed"
+                });
+            }
+        });
+    });
    
     
 
