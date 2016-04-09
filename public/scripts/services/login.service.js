@@ -16,6 +16,7 @@ angular.module('lanApp')
             if(response.data.result){
                 currentUser.username = response.data.username;
                 currentUser.userID = response.data.userID;
+                currentUser.userAvatar = response.data.avatar;
                 sessionStorage.setItem('key', response.data.session)
                 $location.path('home');
                 console.log("User logged in, session key= "+response.data.session);

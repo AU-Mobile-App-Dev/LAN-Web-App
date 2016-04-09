@@ -4,9 +4,10 @@ angular.module('lanApp')
     sessionService.checkSession(function(result){
     if(result){
             
-    
+    console.log(authService.getCurrentUser().userAvatar);
     $scope.newsfeedArray;
     $scope.username = authService.getCurrentUser().username;
+    $scope.userAvatar = authService.getCurrentUser().userAvatar;
 
     
     newsfeedService.getNewsfeed(function(result){

@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `lan-social` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `lan-social`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: lan-social
+-- Host: localhost    Database: lan-social
 -- ------------------------------------------------------
--- Server version	5.6.21
+-- Server version	5.6.25
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS `genre_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `genre_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -94,6 +94,7 @@ CREATE TABLE `genre_list` (
 
 LOCK TABLES `genre_list` WRITE;
 /*!40000 ALTER TABLE `genre_list` DISABLE KEYS */;
+INSERT INTO `genre_list` VALUES (0,'Action'),(1,'FPS'),(2,'RPG'),(3,'Strategy'),(4,'Platformer'),(5,'MMORPG'),(6,'CoOp'),(7,'JRPG');
 /*!40000 ALTER TABLE `genre_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,9 +164,9 @@ DROP TABLE IF EXISTS `owned_games`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `owned_games` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` char(11) NOT NULL,
   `rating` int(11) DEFAULT NULL,
-  `summary` varchar(45) NOT NULL,
+  `summary` text NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -177,6 +178,7 @@ CREATE TABLE `owned_games` (
 
 LOCK TABLES `owned_games` WRITE;
 /*!40000 ALTER TABLE `owned_games` DISABLE KEYS */;
+INSERT INTO `owned_games` VALUES ('123',5,'cool','Banjo Kazooie');
 /*!40000 ALTER TABLE `owned_games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,18 +191,13 @@ DROP TABLE IF EXISTS `user_profile`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_profile` (
   `user_id` int(11) NOT NULL,
-  `user_avatar` varchar(45) DEFAULT NULL,
-  `user_games` int(11) DEFAULT NULL,
-  `user_genres` int(11) DEFAULT NULL,
-  `user_friends` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  KEY `fk_games_idx` (`user_games`),
-  KEY `fk_genres_idx` (`user_genres`),
-  KEY `fk_friends_idx` (`user_friends`),
-  CONSTRAINT `fk_profile_friends` FOREIGN KEY (`user_friends`) REFERENCES `friends_list` (`list_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_profile_games` FOREIGN KEY (`user_games`) REFERENCES `owned_games` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_profile_genres` FOREIGN KEY (`user_genres`) REFERENCES `genre_list` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_profile_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `user_avatar` varchar(150) DEFAULT NULL,
+  `user_genres` int(11) NOT NULL DEFAULT '0',
+  `owned_games` char(11) DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`user_genres`),
+  KEY `owned-games-fk_idx` (`owned_games`),
+  CONSTRAINT `owned-games-fk` FOREIGN KEY (`owned_games`) REFERENCES `owned_games` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user-id-fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -210,6 +207,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
+INSERT INTO `user_profile` VALUES (20,'https://octodex.github.com/images/stormtroopocat.jpg',0,NULL);
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +231,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_status_idx` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +240,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (15,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rob@email.com','60510',NULL,1,'c7b8b825d83371f8e017db6460ae3c47bb78ca0f','');
+INSERT INTO `users` VALUES (20,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rnice@christ.com','60510',NULL,0,'8c6df644d71ae43bdfc85cb47ce14ba925ea89d6','');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -255,4 +253,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-08 14:37:47
+-- Dump completed on 2016-04-09  0:30:44

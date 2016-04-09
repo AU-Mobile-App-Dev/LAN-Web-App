@@ -25,7 +25,8 @@ app.post('/register', function(req, res) {
             username: req.body.username,
             password: req.body.password,
             zip: req.body.zip,
-            email: req.body.email
+            email: req.body.email,
+            avatar: req.body.avatar
         };
         // ============================
         // Check for duplicate usernames
