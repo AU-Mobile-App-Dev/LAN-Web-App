@@ -44,7 +44,6 @@ exports.verifyKey = function(key, callback){
         if (err) {
             callback(false);
         } else {
-            key = passwordFunctions.hashString(key).toString();
                 connection.query("SELECT * FROM users WHERE api_key = ?", [key], function (err, row) {
                     if (err) {
                         console.log(err);
