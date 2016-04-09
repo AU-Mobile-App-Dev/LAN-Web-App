@@ -1,11 +1,6 @@
 angular.module('lanApp')
 
 .service('authService', function($http, $location){
-    var currentUser = {};
-    
-    this.getCurrentUser = function(){
-       return currentUser;
-    }
     
     this.authenticateCreds = function(userObject, callback){
         $http({
@@ -14,10 +9,11 @@ angular.module('lanApp')
             data:{username: userObject.username, password:userObject.password}
         }).then(function successCallback(response) {
             if(response.data.result){
-                currentUser.username = response.data.username;
-                currentUser.userID = response.data.userID;
-                currentUser.userAvatar = response.data.avatar;
-                sessionStorage.setItem('key', response.data.session)
+               sessionStorage.setItem('username', response.data.username);
+               sessionStorage.setItem( 'userID', response.data.userID);
+               sessionStorage.setItem('session',  response.data.session);
+               sessionStorage.setItem('avatar', response.data.avatar);
+             
                 $location.path('home');
                 console.log("User logged in, session key= "+response.data.session);
             }

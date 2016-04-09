@@ -1,14 +1,12 @@
 angular.module('lanApp')
 
-.controller('homeController', function($scope, sessionService, authService, newsfeedService, $location){
+.controller('homeController', function($scope, sessionService, newsfeedService, $location){
     sessionService.checkSession(function(result){
     if(result){
             
-    console.log(authService.getCurrentUser().userAvatar);
     $scope.newsfeedArray;
-    $scope.username = authService.getCurrentUser().username;
-    $scope.userAvatar = authService.getCurrentUser().userAvatar;
-
+    $scope.username = sessionStorage.getItem('username');
+    $scope.userAvatar = sessionStorage.getItem('avatar');
     
     newsfeedService.getNewsfeed(function(result){
         $scope.newsfeedArray = result;

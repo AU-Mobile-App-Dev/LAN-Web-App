@@ -5,7 +5,7 @@ angular.module('lanApp')
          $http({
             method: 'POST',
             url: uri+"/newsfeed",
-            data:{session: sessionStorage.getItem("key")}
+            data:{session: sessionStorage.getItem("session")}
         }).then(function successCallback(response) {
             console.log(response.data);
             callback(response.data);
@@ -20,7 +20,7 @@ angular.module('lanApp')
          $http({
             method: 'PUT',
             url: uri+"/newsfeed/add",
-            data:{session: sessionStorage.getItem("key"), message: message}
+            data:{session: sessionStorage.getItem("session"), message: message}
         }).then(function successCallback(response) {
             callback(true);
 
@@ -35,7 +35,7 @@ angular.module('lanApp')
         $http({
             method: 'PUT',
             url: uri+"/newsfeed/delete",
-            data:{session: sessionStorage.getItem('key'), newsfeedID: id}
+            data:{session: sessionStorage.getItem('session'), newsfeedID: id}
         }).then(function successCallback(response) {
           
 
