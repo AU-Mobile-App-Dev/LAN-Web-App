@@ -221,3 +221,9 @@ a:hover {
   justify-content:center;
   align-content:center;
 }
+
+.profile-image{
+    display:flex;
+    height:200px;
+    width:150px;
+}
