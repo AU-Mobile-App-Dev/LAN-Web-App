@@ -1,0 +1,28 @@
+
+	<div class="container" id="login">
+		      <figure></figure>
+      <figure></figure>
+      <figure></figure>
+		 <div class="loginbox"><img src='/images/lan-logo1.png' style="width:30%;border-radius: 25px;"><h1>Connect With Local Gamers Now!</h1>
+		 	<h2><i class="fa fa-gamepad"></i></h2>
+		 	The social network that is <strong>all about gaming</strong>.<br/>
+		 	Meet new friends, discuss your favorites, post about your progress, and more.<br/><br/>
+
+		 	<hr/>
+
+		 	<h2><i class="fa fa-arrow-circle-right"></i> API Key Sign Up</h2>
+
+		 	<form>
+		 		Username: <input type="text" ng-model="username" placeholder="xXsephirothl337Xx" class="login-nav"></input><br/>
+		 		Password: <input type="password" ng-model="password" placeholder="123456" class="login-nav"></input><br/>
+		 		<button ng-click="getApiKey()" class="login-nav">Get a key!</button>
+		 	</form>
+		 	<br/>
+             <div ng-show="apiKeyResult">
+		 	<i class="fa fa-question-circle"></i> {{message}} {{apiKey}}  <br/>Have questions about our API?
+             ?<br/><a href="#/apiDoc">Click here to checkout our documentation</a><br/><br/>
+             </div>
+		 </div>
+	</div>
+    
+    

@@ -15,7 +15,7 @@ app.post('/authenticate', function(req, res){
             res.json(resultObject);           
         }
         else{
-            res.json({ result: "failed", message: 'Authentication failed.' });
+            res.json({ result: false, message: 'Authentication failed.' });
         }
     });
 });
@@ -42,7 +42,7 @@ app.post('/register', function(req, res) {
         });
 });
 
-app.post('/users/getKey', function(req, res){
+app.post('/getKey', function(req, res){
     var userObject = {
         username: req.body.username,
         password: req.body.password
@@ -50,10 +50,10 @@ app.post('/users/getKey', function(req, res){
     loginRegFunctions.generateKey(userObject, function(result, key){
         console.log(result);
         if(result){
-            res.json({ success: true, message: 'Here is your API key, do not lose it or share it', apiKey: key});           
+            res.json({ result: true, message: 'Here is your API key, do not lose it or share it', apiKey: key});           
         }
         else{
-            res.json({ success: false, message: 'Authentication failed.' });
+            res.json({ result: false, message: 'Authentication failed.', apiKey: "" });
         }
     });
     

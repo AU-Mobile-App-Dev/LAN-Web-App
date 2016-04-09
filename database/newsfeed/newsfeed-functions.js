@@ -36,10 +36,10 @@ exp.getNewsFeedByApikey = function(apikey, callback){
             callback(503);
         }
         else{
-            apikey = passwordFunctions.hashString(apikey).toString();
-        connection.query('SELECT * FROM newsfeed WHERE user_id=(SELECT id FROM users WHERE api_key = ?)', apikey
+        connection.query('SELECT newsfeed.id, newsfeed.timestamp, users.username, newsfeed.message, newsfeed.likes FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE api_key = ?) AND users.id = newsfeed.user_id', [apikey]
         , function (err, result) {
-            if (err){callback(500)}
+            console.log(result + " " + result.length);
+            if (err){callback(500);}
             else if(result.length === 0){
                 callback(204);
             }
@@ -60,7 +60,7 @@ exp.getNewsFeedByID = function(username, callback){
             callback(503);
         }
         else{
-        connection.query('SELECT * FROM newsfeed WHERE user_id=(SELECT id FROM users WHERE username = ?)', username
+        connection.query('SELECT * FROM newsfeed WHERE user_id=(SELECT id FROM users WHERE username = ?)', [username]
         , function (err, result) {
             if (err){callback(500)}
              else if(result.length === 0){
@@ -82,10 +82,8 @@ exp.addNewsfeedItemByApikey = function(newsObject, callback){
         }
         else{
         var genKey = randomstring.generate(6);
-         var apikey = passwordFunctions.hashString(newsObject.apikey).toString();
-         console.log(genKey);
         connection.query('INSERT INTO newsfeed (id, user_id, timestamp, message) VALUES (?, (SELECT id FROM users WHERE api_key = ?), ?, ?)',
-        [genKey, apikey, newsObject.timestamp, newsObject.message], function (err, results) {
+        [genKey, newsObject.apikey, newsObject.timestamp, newsObject.message], function (err, results) {
             if (err){ callback(500);
                 console.log(err);
             }
@@ -128,7 +126,6 @@ exp.removeNewsfeedItemByApikey = function(userObject, callback){
            callback(503);
         }
         else{
-            userObject.apikey = passwordFunctions.hashString(userObject.apikey).toString();
         connection.query('DELETE FROM newsfeed WHERE id = ? AND user_id = (SELECT id FROM users WHERE api_key = ?)',
         [userObject.newsfeedItemID, userObject.apikey], function (err, results) {
             if (err) {callback(500);}

@@ -8,7 +8,7 @@ angular.module('lanApp')
             data:{username: userObject.username, password:userObject.password, zip: userObject.zip, email: userObject.email}
         }).then(function successCallback(response) {
             if(response.data.result === "success"){
-                $location.path('regsuccess');
+                $location.path('regSuccess');
             }
             else{
                 console.log(response.data);

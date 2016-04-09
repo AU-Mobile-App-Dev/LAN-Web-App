@@ -49,7 +49,7 @@ module.exports = function(app) {
 
     });
 
-    app.put('/api/newsfeed/add/api=:apikey', function(req, res) {
+    app.post('/api/newsfeed/add/api=:apikey', function(req, res) {
         sessions.verifyKey(req.params.apikey, function(result) {
             if (result) {
                 var newsfeedObject = {
@@ -97,7 +97,6 @@ module.exports = function(app) {
             }
         });
     });
-   
     
 
     // =======================

@@ -14,7 +14,7 @@ exports.generateKey = function(userObject, callback){
             if(err) return false;
         } else {
         
-                connection.query("SELECT username, password FROM users WHERE username = ?", userObject.username, function (err, row) {
+                connection.query("SELECT * FROM users WHERE username = ?", userObject.username, function (err, row) {
                     if (err) {
                         console.log(err);
                     }
@@ -22,7 +22,7 @@ exports.generateKey = function(userObject, callback){
                        //Generate apikey, insert it into the user's table and send the key back for the response
                        var apiKey = row[0].username + randomstring.generate();
                        apiKey = passwordFunctions.hashString(apiKey).toString();
-                       insertKey(apiKey, userObject.username);
+                       insertKey(apiKey, row[0].id);
                        callback(true, apiKey);
                       
                    }
@@ -44,8 +44,7 @@ exports.verifyKey = function(key, callback){
         if (err) {
             callback(false);
         } else {
-            key = passwordFunctions.hashString(key).toString();
-                connection.query("SELECT * FROM users WHERE api_key = ?", key, function (err, row) {
+                connection.query("SELECT * FROM users WHERE api_key = ?", [key], function (err, row) {
                     if (err) {
                         console.log(err);
                         callback(false);
@@ -66,14 +65,14 @@ exports.verifyKey = function(key, callback){
     });
 }
 
-insertKey = function(key, username){
+insertKey = function(key, userID){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
             console.error('CONNECTION error: ', err);
             if(err) return false;
         } else {
         
-                connection.query("UPDATE users SET api_key = ? WHERE username = ?", [key, username], function (err, row) {
+                connection.query("UPDATE users SET api_key = ? WHERE id = ?", [key, userID], function (err, row) {
                     if (err) {
                         console.log(err);
                     }

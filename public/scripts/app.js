@@ -20,7 +20,27 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
             controller: 'homeController'
         })
         
-        .when('/regsuccess', {
+        .when('/apiKey', {
+            templateUrl: 'apiKey.html',
+            controller: 'apiKeyController'
+        })
+        
+        .when('/apiDoc', {
+            templateUrl: 'apiDoc.html',
+            controller: 'apiDocController'
+        })
+        
+        .when('/apiDocErrors', {
+            templateUrl: 'apiDocErrors.html',
+            controller: 'apiDocErrorsController'
+        })
+        
+        .when('/apiDocSamples', {
+            templateUrl: 'apiDocSamples.html',
+            controller: 'apiDocSamplesController'
+        })
+        
+        .when('/regSuccess', {
             templateUrl: 'regSuccess.html'
         });
 });

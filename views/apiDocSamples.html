@@ -1,0 +1,37 @@
+
+	<div class="container" id="login">
+		      <figure></figure>
+      <figure></figure>
+      <figure></figure>
+		 <div class="loginbox"><a href="#/" ><img src='/images/lan-logo1.png' style="width:30%;border-radius: 25px;"></a><h1>Connect With Local Gamers Now!</h1>
+		 	<h2><i class="fa fa-gamepad"></i></h2>
+		 	The social network that is <strong>all about gaming</strong>.<br/>
+		 	Meet new friends, discuss your favorites, post about your progress, and more.<br/><br/>
+
+		 	<hr/>
+
+		 	<h2><i class="fa fa-arrow-circle-right"></i> API Documentation</h2>
+		 	<br/>
+        
+		
+         <table>
+            <th>Parameter Name</th><th>Variable Type</th><th>Parameter Description</th><th>Example Value</th>
+            <tr ng-repeat='call in apiCalls' ng-class-odd="'odd'" ng-class-even="'even'">
+            <td>{{call.name}}</td><td>{{call.type}}</td><td>{{call.desc}}</td><td>{{call.example}}</td>
+            </tr>
+         </table>
+            
+            <header><h1>Making a Request Using AngularJS</h1></header>
+
+         <table>
+             <th>Request Description</th><th>Example Angular Request</th><th>Example Response</th>
+            <tr ng-repeat='request in requestDoc' ng-class-odd="'odd'" ng-class-even="'even'">
+            <td>{{request.desc}}</td><td>{{request.code}}</td><td>{{request.example}}</td>
+            </tr>
+         </table>
+          <br/>
+            <i class="fa fa-arrow-circle-left"></i><a href="#/apiDoc">Go back</a>
+             </div>
+	</div>
+    
+    
