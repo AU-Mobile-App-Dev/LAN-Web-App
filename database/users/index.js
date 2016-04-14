@@ -11,6 +11,7 @@ module.exports = {
     getFriends: selectProfiles.getFriendsList,
     getUserByLocation: selectProfiles.getUserByLocation,
     setupProfile: profileFunctions.setupProfile,
-    editProfile: profileFunctions.editProfile
+    editProfile: profileFunctions.editProfile,
+    getUserCountByLocation: selectProfiles.getUserCountByLocation
     
 };

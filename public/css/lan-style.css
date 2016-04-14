@@ -227,3 +227,9 @@ a:hover {
     height:200px;
     width:150px;
 }
+
+.infowindow{
+    color: black;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}

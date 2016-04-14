@@ -92,3 +92,4 @@ exports.sendRequest= function(username, friendName, message, callback){
         }
     });
 }
+

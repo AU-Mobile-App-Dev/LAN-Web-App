@@ -1,5 +1,6 @@
 var loginRegFunctions = require('../database/login-registration');
 var errorCodes = require('./error-codes.js');
+var geocoder = require('geocoder');
 
 module.exports = function(app){
 // =======================
@@ -20,10 +21,16 @@ app.post('/authenticate', function(req, res){
     });
 });
 app.post('/register', function(req, res) {
+    geocoder.geocode(req.body.zip, function ( err, data ) {
+        if(err){
+            console.log(err);
+        }
         /**Create object out  of passed params*/
         var userObject = {
             username: req.body.username,
             password: req.body.password,
+            lat: data.results[0].geometry.location.lat,
+            lng: data.results[0].geometry.location.lng,
             zip: req.body.zip,
             email: req.body.email,
             avatar: req.body.avatar
@@ -41,6 +48,9 @@ app.post('/register', function(req, res) {
                     }
               });
         });
+         
+    });
+        
 });
 
 app.post('/getKey', function(req, res){
