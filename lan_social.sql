@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `lan-social` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `lan-social`;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: lan-social
+-- Host: 127.0.0.1    Database: lan-social
 -- ------------------------------------------------------
--- Server version	5.6.25
+-- Server version	5.6.21
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -99,6 +97,33 @@ INSERT INTO `genre_list` VALUES (0,'Action'),(1,'FPS'),(2,'RPG'),(3,'Strategy'),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `locations`
+--
+
+DROP TABLE IF EXISTS `locations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `zip` char(5) DEFAULT NULL,
+  `lat` varchar(45) DEFAULT NULL,
+  `lng` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `zip_UNIQUE` (`zip`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locations`
+--
+
+LOCK TABLES `locations` WRITE;
+/*!40000 ALTER TABLE `locations` DISABLE KEYS */;
+INSERT INTO `locations` VALUES (1,'60510','41.8383772','-88.3530747'),(2,'60174','41.9169525','-88.29476749999999'),(3,'60554','41.77026070000001','-88.4597673');
+/*!40000 ALTER TABLE `locations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `messages`
 --
 
@@ -153,6 +178,7 @@ CREATE TABLE `newsfeed` (
 
 LOCK TABLES `newsfeed` WRITE;
 /*!40000 ALTER TABLE `newsfeed` DISABLE KEYS */;
+INSERT INTO `newsfeed` VALUES ('sr7117',21,'2016-04-09 15:02:50','But I hate rocks...',0),('zqQd0W',21,'2016-04-09 15:02:35','I love flying..',0);
 /*!40000 ALTER TABLE `newsfeed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +233,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (20,'https://octodex.github.com/images/stormtroopocat.jpg',0,NULL);
+INSERT INTO `user_profile` VALUES (20,'https://octodex.github.com/images/stormtroopocat.jpg',0,NULL),(21,'http://img06.deviantart.net/fab7/i/2015/173/9/a/crobat_by_remember2fly1-d8y9zoq.png',0,NULL),(22,'https://img0.etsystatic.com/060/0/10163260/il_340x270.749795582_6zpn.jpg',0,NULL),(23,'https://img0.etsystatic.com/060/0/10163260/il_340x270.749795582_6zpn.jpg',0,NULL);
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,15 +249,17 @@ CREATE TABLE `users` (
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `zip` char(5) NOT NULL,
   `dob` date DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `session` varchar(64) NOT NULL,
   `api_key` varchar(64) NOT NULL,
+  `location_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fk_status_idx` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+  KEY `fk_status_idx` (`status`),
+  KEY `location_id_fk_idx` (`location_id`),
+  CONSTRAINT `location_fk` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +268,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (20,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rnice@christ.com','60510',NULL,0,'8c6df644d71ae43bdfc85cb47ce14ba925ea89d6','');
+INSERT INTO `users` VALUES (20,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rnice@christ.com',NULL,0,'8c6df644d71ae43bdfc85cb47ce14ba925ea89d6','',1),(21,'crobat','0343ae4af25ceb55c0704d3ab8252c48bd0b930e','crobat@crobat.com',NULL,1,'8a81988cb064393231207c404c7ff6f3417fe60e','011f8abbd81db82f66d8f3fad334dc8f35f5c96e',2),(22,'bnice','f1de74b78a0cbbdb206db5d88c0aaca9a1c6d87b','b@nice.com',NULL,0,'173b873c4550f8ce40bd7fc653871374a1b9319d','',1),(23,'Genji','f1956edc88b7eb0e90fd0b56c672f82a9c35cc9b','genji@assassins.com',NULL,0,'92cc22f3c543d468bef16d8c3d8e61b763aae9d4','',3);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -253,4 +281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-09  0:30:44
+-- Dump completed on 2016-04-15  0:49:07

@@ -9,7 +9,7 @@ exports.getUsers = function(callback) {
             console.error('CONNECTION error: ', err);
             callback(500);
         } else {
-            connection.query('SELECT username, lat, lng, user_profile.user_avatar, status FROM users, user_profile WHERE users.id = user_profile.user_id', function (err, rows) {
+            connection.query('SELECT username, lat, lng, zip, user_profile.user_avatar, status FROM users, locations, user_profile WHERE users.id = user_profile.user_id AND users.location_id = locations.id', function (err, rows) {
                 if (err) {
                    callback(500);
                 }
@@ -29,7 +29,7 @@ exports.getUserByName= function(username, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, lat, lng, user_profile.user_avatar, status FROM users, user_profile WHERE username = ? AND users.id = user_profile.user_id", username, function (err, results) {
+            connection.query("SELECT username, lat, lng, zip, user_profile.user_avatar, status FROM users, locations, user_profile WHERE username = ? AND users.id = user_profile.user_id AND users.location_id = locations.id", username, function (err, results) {
                 if (err) {
                     console.error(err);
                    callback(500);
@@ -53,7 +53,7 @@ exports.getUserByLocation= function(zipArray, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, user_profile.user_avatar, lat, lng, zip, status FROM users, user_profile WHERE users.id = user_profile.user_id AND zip in (?)", 
+            connection.query("SELECT username, user_profile.user_avatar, lat, lng, zip, status FROM users, locations, user_profile WHERE users.id = user_profile.user_id AND users.location_id = locations.id AND zip in (?)", 
            [zipArray] , function (err, results) {
                 if (err) {
                     console.error(err);
@@ -78,7 +78,7 @@ exports.getUserCountByLocation= function(zipArray, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT lat, lng, zip, count(*) as users FROM users WHERE zip in (?) GROUP BY (zip)", 
+            connection.query("SELECT lat, lng, zip, count(users.username) as users FROM users, locations WHERE locations.zip in (?) AND users.location_id = locations.id GROUP BY (zip);", 
            [zipArray] , function (err, results) {
                 if (err) {
                     console.error(err);
