@@ -13,16 +13,18 @@
 
 		<div class='box'>
 			<div class="general">
-				<h1>Send Message</h1>
-
-				<form>
-		 		To:<br/><input type="text" name="friend_receiver" class="login-nav"></input><br/><br/>
-		 		Message:<br/><input type="textarea" name="friend_message" class="login-nav"></input><br/><br/>
-		 		<input type="submit" value="Send" class="lan-btn">
-		 	</form>
-		</div>
-
+								<h1>Friends</h1>
+		<div class="friends">
 		
+			<div class="latest" ng-repeat="profile in profiles">
+				<img src="{{profile.user_avatar}}" style="border-radius:25px;width:100px"><br><strong>{{profile.username}}</strong><br/><a href="#/profile/username/{{profile.username}}" class="lan-btn">View Profile</a>
+			</div>
+			
+
+
+		</div>
+	</div>
+
 	</div>
 
 </div>

@@ -100,8 +100,28 @@ module.exports = function(app) {
     app.post('/users/location', function(req, res) {
         sessions.getSession(req.body.session, function(result) {
             if (result) {
-                        var zipcodeArray = zipcodes.radius(req.body.zip, 15);
-                        profiles.getUserByLocation(zipcodeArray, function(result) {
+                        profiles.getUserByLocation(req.body.zip, function(result) {
+                            errorCodes.responseCodeHandler(result, function(foundError, code) {
+                                if (foundError) {
+                                    res.json(code);
+                                } else {
+                                    res.json(result);
+                                }
+                            })
+                        });
+                    
+            } else {
+                res.json({
+                    403: "Unauthenticated API request for friends list"
+                });
+            }
+        });
+    });
+    
+    app.post('/users/username', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
+            if (result) {
+                        profiles.getUserByName(req.body.username, function(result) {
                             errorCodes.responseCodeHandler(result, function(foundError, code) {
                                 if (foundError) {
                                     res.json(code);

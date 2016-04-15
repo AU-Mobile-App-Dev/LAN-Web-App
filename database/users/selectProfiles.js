@@ -53,7 +53,7 @@ exports.getUserByLocation= function(zipArray, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, user_profile.user_avatar, lat, lng, zip, status FROM users, locations, user_profile WHERE users.id = user_profile.user_id AND users.location_id = locations.id AND zip in (?)", 
+            connection.query("SELECT username, user_profile.user_avatar, lat, lng, zip, status FROM users, locations, user_profile WHERE users.id = user_profile.user_id AND users.location_id = locations.id AND locations.zip in (?)", 
            [zipArray] , function (err, results) {
                 if (err) {
                     console.error(err);

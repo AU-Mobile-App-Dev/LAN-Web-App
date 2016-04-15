@@ -45,6 +45,16 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
             controller: 'friendMapController'
         })
         
+        .when('/profiles/zip/:zip',{
+            templateUrl:'profilesFromMap.html',
+            controller: 'mapProfileController'
+        })
+        
+        .when('/profile/username/:username', {
+            templateUrl: 'profile.html',
+            controller: 'profileController'
+        })
+        
         .when('/regSuccess', {
             templateUrl: 'regSuccess.html'
         });

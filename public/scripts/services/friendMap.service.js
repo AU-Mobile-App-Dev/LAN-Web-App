@@ -36,10 +36,11 @@ angular.module('lanApp')
             position: new google.maps.LatLng(parseFloat(userMarkerArray[i].lat), parseFloat(userMarkerArray[i].lng)),
             map: map
         });
-
+          
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                infowindow.setContent("<p class=infowindow>" + userMarkerArray[i].users + " LAN user(s) here!</p><a href=#/profile/:>");
+                infowindow.setContent("<p class=infowindow>" + userMarkerArray[i].users + " LAN user(s) here!</p><a href=#/profiles/zip/" +
+                userMarkerArray[i].zip + ">Click here to see them</a>");
                 infowindow.open(map, marker);
             }
         })(marker, i));
