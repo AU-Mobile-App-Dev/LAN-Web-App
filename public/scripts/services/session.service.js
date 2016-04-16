@@ -27,7 +27,7 @@
             url: uri+"/sessions/destroy",
             data:{userID: sessionStorage.getItem('userID')}
         }).then(function successCallback(response) {
-            sessionStorage.removeItem('username', response.data.username);
+               sessionStorage.removeItem('username', response.data.username);
                sessionStorage.removeItem( 'userID', response.data.userID);
                sessionStorage.removeItem('session',  response.data.session);
                sessionStorage.removeItem('avatar', response.data.avatar);

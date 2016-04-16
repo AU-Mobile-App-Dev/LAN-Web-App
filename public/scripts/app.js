@@ -40,7 +40,7 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
             controller: 'apiDocSamplesController'
         })
         
-        .when('/friendMap',{
+        .when('/userMap',{
             templateUrl:'map.html',
             controller: 'friendMapController'
         })
@@ -53,6 +53,11 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
         .when('/profile/username/:username', {
             templateUrl: 'profile.html',
             controller: 'profileController'
+        })
+        
+        .when('/messages', {
+            templateUrl: 'messages.html',
+            controller: 'messageController'
         })
         
         .when('/regSuccess', {

@@ -29,7 +29,7 @@ exports.getUserByName= function(username, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, lat, lng, zip, user_profile.user_avatar, status FROM users, locations, user_profile WHERE username = ? AND users.id = user_profile.user_id AND users.location_id = locations.id", username, function (err, results) {
+            connection.query("SELECT users.id, username, lat, lng, zip, user_profile.user_avatar, status FROM users, locations, user_profile WHERE username = ? AND users.id = user_profile.user_id AND users.location_id = locations.id", username, function (err, results) {
                 if (err) {
                     console.error(err);
                    callback(500);

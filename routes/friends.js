@@ -1,5 +1,6 @@
 var friendFunctions = require('../database/friends');
 var errorCodes = require('./error-codes.js');
+var sessions = require('../database/login-registration');
 
 module.exports = function(app) {
     // ===============================
@@ -55,7 +56,7 @@ module.exports = function(app) {
     // POST REQUESTS =========
     // =======================
     app.post('/friends', function(req, res) {
-        sessions.getSession(req.body.username, req.body.session, function(result) {
+        sessions.getSession(req.body.session, function(result) {
             if (result) {
                 friendFunctions.getFriends(req.body.username, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
@@ -78,12 +79,13 @@ module.exports = function(app) {
   
     
     // =======================
-    // PUT REQUESTS ==========
+    // POST REQUESTS ==========
     // =======================
-    app.put('/friends/add', function(req, res) {
-        sessions.getSession(req.body.username, req.body.session, function(result) {
+ 
+   app.post('/friends/add', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
             if (result) {
-                friendFunctions.addFriend(req.body.username, req.body.friendName, function(result){
+               friendFunctions.addFriend(req.body.username, req.body.friendName, function(result){
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);
@@ -94,18 +96,25 @@ module.exports = function(app) {
                 });
             } else {
                 res.json({
-                    403: "Unauthenticated request"
+                    403: "Unauthenticated API request for newsfeed"
                 });
             }
         });
 
-    });
-    
-     app.put('/friends/sendRequest', function(req, res){
-      sessions.getSession(req.body.username, req.body.session, function(result){
-          if(result){
-              friendFunctions.sendRequest(req.body.username, req.body.friendName, req.body.message, function(result){
-                  errorCodes.require(result, function(foundError, code){
+    }); 
+   
+   app.post('/friends/request', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
+            console.log(result);
+            if (result) {
+                var requestObject = {
+                    sender: req.body.username,
+                    receiver: req.body.friendID,
+                    message: req.body.message,
+                    timestamp: (new Date()).toISOString().substring(0, 19).replace("T", " ")
+                }
+               friendFunctions.sendRequest(requestObject, function(result){
+                  errorCodes.responseCodeHandler(result, function(foundError, code){
                       if(foundError){
                           res.json(code);
                       }
@@ -114,17 +123,19 @@ module.exports = function(app) {
                       }
                   });
               });
-          }
-      }); 
-   });
-        
-    // =======================
-    // DELETE REQUESTS =======
-    // =======================
-    app.delete('/friends/remove', function(req, res) {
-        sessions.getSession(req.body.username, req.body.session, function(result) {
+            } else {
+                res.json({
+                    403: "Unauthenticated API request for newsfeed"
+                });
+            }
+        });
+
+    });
+    
+    app.post('/friends/remove', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
             if (result) {
-                friendFunctions.deleteFriend(req.body.username, req.body.friendName, function(result){
+               friendFunctions.deleteFriend(req.body.username, req.body.friendName, function(result){
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);
@@ -135,12 +146,12 @@ module.exports = function(app) {
                 });
             } else {
                 res.json({
-                    403: "Unauthenticated request"
+                    403: "Unauthenticated API request for newsfeed"
                 });
             }
         });
 
     });
-
+        
 
 }

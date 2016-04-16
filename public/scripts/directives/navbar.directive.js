@@ -4,6 +4,9 @@ angular.module('lanApp')
       return {
         restrict: 'E',
         scope: false,
-        templateUrl: 'navbar.html'
+        templateUrl: 'navbar.html',
+        controller: 'navbarController'
       }
-    });
+    })
+    
+ 
