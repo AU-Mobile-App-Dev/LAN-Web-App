@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: lan-social
+-- Host: localhost    Database: lan-social
 -- ------------------------------------------------------
--- Server version	5.6.21
+-- Server version	5.6.25
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -60,7 +60,7 @@ CREATE TABLE `friends_list` (
   KEY `fk_friend_id_idx` (`friend_id`),
   CONSTRAINT `fk_friend_id` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,6 +69,7 @@ CREATE TABLE `friends_list` (
 
 LOCK TABLES `friends_list` WRITE;
 /*!40000 ALTER TABLE `friends_list` DISABLE KEYS */;
+INSERT INTO `friends_list` VALUES (1,20,21),(2,20,21);
 /*!40000 ALTER TABLE `friends_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,6 +125,30 @@ INSERT INTO `locations` VALUES (1,'60510','41.8383772','-88.3530747'),(2,'60174'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `message_type`
+--
+
+DROP TABLE IF EXISTS `message_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `message_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `message_type`
+--
+
+LOCK TABLES `message_type` WRITE;
+/*!40000 ALTER TABLE `message_type` DISABLE KEYS */;
+INSERT INTO `message_type` VALUES (0,'Friend request'),(1,'Message');
+/*!40000 ALTER TABLE `message_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `messages`
 --
 
@@ -132,15 +157,16 @@ DROP TABLE IF EXISTS `messages`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sender` int(11) NOT NULL,
+  `sender` varchar(45) NOT NULL,
   `receiver` int(11) NOT NULL,
-  `message` varchar(150) NOT NULL,
+  `message` text NOT NULL,
   `sent` datetime NOT NULL,
+  `type` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_sender_idx` (`sender`),
   KEY `fk_receiver_idx` (`receiver`),
+  KEY `fk_type_idx` (`type`),
   CONSTRAINT `fk_receiver` FOREIGN KEY (`receiver`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_sender` FOREIGN KEY (`sender`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_type` FOREIGN KEY (`type`) REFERENCES `message_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -268,7 +294,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (20,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rnice@christ.com',NULL,0,'8c6df644d71ae43bdfc85cb47ce14ba925ea89d6','',1),(21,'crobat','0343ae4af25ceb55c0704d3ab8252c48bd0b930e','crobat@crobat.com',NULL,1,'8a81988cb064393231207c404c7ff6f3417fe60e','011f8abbd81db82f66d8f3fad334dc8f35f5c96e',2),(22,'bnice','f1de74b78a0cbbdb206db5d88c0aaca9a1c6d87b','b@nice.com',NULL,0,'173b873c4550f8ce40bd7fc653871374a1b9319d','',1),(23,'Genji','f1956edc88b7eb0e90fd0b56c672f82a9c35cc9b','genji@assassins.com',NULL,0,'92cc22f3c543d468bef16d8c3d8e61b763aae9d4','',3);
+INSERT INTO `users` VALUES (20,'rnice4christ','03d194eb46776348d8ce86d2dd4efca6b4941c6c','rnice@christ.com',NULL,1,'2290314fff0225ef1ee42cc5819dcd1143301299','',1),(21,'crobat','0343ae4af25ceb55c0704d3ab8252c48bd0b930e','crobat@crobat.com',NULL,0,'','011f8abbd81db82f66d8f3fad334dc8f35f5c96e',2),(22,'bnice','f1de74b78a0cbbdb206db5d88c0aaca9a1c6d87b','b@nice.com',NULL,0,'173b873c4550f8ce40bd7fc653871374a1b9319d','',1),(23,'Genji','f1956edc88b7eb0e90fd0b56c672f82a9c35cc9b','genji@assassins.com',NULL,0,'92cc22f3c543d468bef16d8c3d8e61b763aae9d4','',3);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -281,4 +307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-15  0:49:07
+-- Dump completed on 2016-04-16 17:44:31
