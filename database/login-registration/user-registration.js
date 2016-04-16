@@ -19,7 +19,7 @@ exports.regUser = function(userObject, callback){
         } else {
                 /**Hash the password before inserting it into the DB*/
                 userObject.password = passwordFunctions.hashString(userObject.password).toString();
-                connection.query('INSERT INTO users (username, password, email, zip) VALUES ( ?, ?, ?, ?)', 
+                connection.query('INSERT INTO users (username, password, email, location_id) VALUES ( ?, ?, ?, (SELECT id FROM locations WHERE zip = ?))', 
                 [userObject.username, userObject.password, userObject.email, userObject.zip], function (err, rows) {
                     if (err) {
                         console.log(err);

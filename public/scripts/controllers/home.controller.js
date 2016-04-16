@@ -1,14 +1,11 @@
 angular.module('lanApp')
 
-.controller('homeController', function($scope, sessionService, authService, newsfeedService, $location){
-    sessionService.checkSession(function(result){
-    if(result){
-            
-    console.log(authService.getCurrentUser().userAvatar);
+.controller('homeController', function($scope, newsfeedService, $location){
     $scope.newsfeedArray;
-    $scope.username = authService.getCurrentUser().username;
-    $scope.userAvatar = authService.getCurrentUser().userAvatar;
-
+    var currentUser = sessionStorage.getItem('usrename');
+    $scope.username = currentUser;
+    $scope.userAvatar = sessionStorage.getItem('avatar');
+   
     
     newsfeedService.getNewsfeed(function(result){
         $scope.newsfeedArray = result;
@@ -29,14 +26,6 @@ angular.module('lanApp')
         newsfeedService.deleteNews($scope.newsfeedArray[index].id);
        $scope.newsfeedArray.splice(index, 1);
     }
-    
-    $scope.logout = function(){
-    sessionService.destroySession();
-    }
-    }
-    else{
-        $location.path('');//user is not validated to view this route, kick them back to login
-    }
-    });
-    
+   
+  
 })

@@ -15,7 +15,7 @@ exports.authenticate = function(userObject, callback){
             callback(500);
         } else {
         
-                connection.query("SELECT users.id, users.username, users.password, user_profile.user_avatar FROM users, user_profile WHERE users.username = ? AND users.id = user_profile.user_id", userObject.username, function (err, row) {
+                connection.query("SELECT users.id, users.username, users.password, locations.zip, user_profile.user_avatar FROM users, locations, user_profile WHERE users.username = ? AND users.id = user_profile.user_id AND locations.id = users.location_id", userObject.username, function (err, row) {
                     if (err) {
                         console.log(err);
                     }
@@ -25,7 +25,7 @@ exports.authenticate = function(userObject, callback){
                        session = passwordFunctions.hashString(session).toString();
                        setSession.setSession(session, row[0].id);
                        changeStatus(userObject.username);
-                       var resultObject = {result: true, session: session, username: row[0].username, userID: row[0].id, avatar: row[0].user_avatar};
+                       var resultObject = {result: true, session: session, username: row[0].username, userID: row[0].id, avatar: row[0].user_avatar, zip: row[0].zip};
                        console.log(resultObject);
                        callback(true, resultObject);
                       

@@ -1,5 +1,5 @@
 var uri = "http://localhost:5000";
-
+ 
 angular.module('lanApp', ['ngRoute', 'ngResource'])
 
 
@@ -38,6 +38,31 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
         .when('/apiDocSamples', {
             templateUrl: 'apiDocSamples.html',
             controller: 'apiDocSamplesController'
+        })
+        
+        .when('/userMap',{
+            templateUrl:'map.html',
+            controller: 'friendMapController'
+        })
+        
+        .when('/profiles/zip/:zip',{
+            templateUrl:'profilesFromMap.html',
+            controller: 'mapProfileController'
+        })
+        
+        .when('/profile/username/:username', {
+            templateUrl: 'profile.html',
+            controller: 'profileController'
+        })
+        
+        .when('/messages', {
+            templateUrl: 'messages.html',
+            controller: 'messageController'
+        })
+        
+        .when('/friends', {
+            templateUrl: "friends.html",
+            controller: "friendController"
         })
         
         .when('/regSuccess', {

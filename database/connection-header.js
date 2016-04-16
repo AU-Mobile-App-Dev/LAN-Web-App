@@ -21,7 +21,8 @@ exports.getConnection = function() {
             host: 'localhost',
             user: 'root',
             password: '',
-            database: 'lan-social'
+            database: 'lan-social',
+            multipleStatements: true
         });
     return connectionpool;
 }

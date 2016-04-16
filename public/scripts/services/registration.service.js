@@ -5,7 +5,8 @@ angular.module('lanApp')
          $http({
             method: 'POST',
             url: uri+"/register",
-            data:{username: userObject.username, password:userObject.password, zip: userObject.zip, email: userObject.email, avatar: "https://octodex.github.com/images/stormtroopocat.jpg"}
+            data:{username: userObject.username, password:userObject.password, zip: userObject.zip, 
+                email: userObject.email, avatar: userObject.avatar}
         }).then(function successCallback(response) {
             if(response.data.result === "success"){
                 $location.path('regSuccess');

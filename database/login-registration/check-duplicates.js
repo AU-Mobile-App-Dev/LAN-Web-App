@@ -6,6 +6,7 @@
  */
 var connection = require('../connection-header.js').getConnection();
 var loginRegFunctions = require('./user-registration.js');
+var geocoder = require('geocoder');
 var exp = module.exports = {};
 
 exp.isDuplicate = function(userObject, callback){
@@ -26,8 +27,7 @@ exp.isDuplicate = function(userObject, callback){
                callback({"Error": "Duplicate username"});
             }
             else{
-                 console.log("executing registration");
-               loginRegFunctions.regUser(userObject, callback);
+                checkLocation(userObject, callback);
             }
 
         });
@@ -37,27 +37,55 @@ exp.isDuplicate = function(userObject, callback){
 
     });
 }
-
-checkEmail = function(userObject, callback){
+//attempt to insert zip, lat and , lng
+checkLocation = function(userObject, callback){
     connectionpool.getConnection(function (err, connection) {
         if(err){
            callback(503); 
         }
         else{
         console.log(userObject.email);
-        connection.query('SELECT username FROM users WHERE email = ?', userObject.email, function (err, results) {
+        connection.query('SELECT * FROM locations WHERE zip = ?', userObject.zip, function (err, results) {
             if (err) {
                 console.log(err);
                 callback(500);
             }
             else if (results.length > 0) {
-                callback({"Error":"Email already registered"});
+                loginRegFunctions.regUser(userObject, callback);
             }else{
-               
+                insertLocation(userObject, callback);
             }
                 
         });
         }
         connection.release();
     });
+}
+
+insertLocation = function(userObject, callback){
+    geocoder.geocode(userObject.zip, function(err, data){
+        var lat = data.results[0].geometry.location.lat;
+        var lng = data.results[0].geometry.location.lng;
+        connectionpool.getConnection(function (err, connection) {
+        if(err){
+           callback(503); 
+        }
+        else{
+        console.log(userObject.email);
+        connection.query('INSERT INTO locations (zip, lat, lng) VALUES (?, ?, ?)', [userObject.zip, lat, lng], function (err, results) {
+            if (err) {
+                console.log(err);
+                callback(500);
+            }
+           else{
+                loginRegFunctions.regUser(userObject, callback);
+            }
+                
+        });
+        }
+        connection.release();
+    });
+        
+    })
+    
 }

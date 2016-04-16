@@ -17,8 +17,12 @@
 		 		Password: <input type="password" ng-model="password" placeholder="123456" class="login-nav"></input><br/>
 		 		ZIP Code (US Only): <input type="text" ng-model="zip" placeholder="50542" class="login-nav"></input><br/>
                 Email: <input type="email" ng-model="email" placeholder="user@email.com" class="login-nav"></input><br/>
+               <img ng-src="{{selectedAvatar}}" style="height:100px;width:100px;display:inline"/> <button ng-click="showAvatars()" class="login-nav">Choose an Avatar</button>
 		 		<button ng-click="registerUser()" class="login-nav">Submit</button>
 		 	</form>
+             <div ng-show="showModal" ng-repeat="avatar in avatarUrls" >
+                 <img ng-src="{{avatar.link}}" ng-click="selectAvatar($index)" style="height:75px;width:75px;display:block"/>
+                 </div>
 		 	<br/>
 		 	<i class="fa fa-question-circle"></i> Already have an account?<br/><a href="#/">Click here to login</a><br/><br/>
 		 </div>

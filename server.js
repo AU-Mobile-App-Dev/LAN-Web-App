@@ -7,6 +7,7 @@ var newsfeedRoutes = require('./routes/newsfeed');
 var friendsRoutes = require('./routes/friends');
 var sessionRoutes = require('./routes/sessions');
 var loginRoutes = require('./routes/login-registration');
+var messageRoutes = require('./routes/messages');
 var errorRoutes = require('./routes/error-handling');
 var client = require('redis').createClient('redis://redistogo:efb9dbbdf5d63e9da1be1865ece518cb@gar.redistogo.com:9236/');
 var limitConfig = require('./server-config/limiter');
@@ -39,6 +40,7 @@ loginRoutes(app);
 friendsRoutes(app);
 newsfeedRoutes(app);
 sessionRoutes(app);
+messageRoutes(app);
 
 /*=====Make sure this is the last route function app gets passed to=====*/
 errorRoutes(app);

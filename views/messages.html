@@ -1,82 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>LAN Social Network - Connecting Gamers</title>
-<link href='../css/lan-style.css' rel='stylesheet'>
-<link href='../css/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
-
-
-</head>
-<div class='container navbar'>
-	<div class="nav-icon">
-	<a href="home.html"><img class='nav-icon' src='../images/lan-logo1.png'></a>
-	</div>
-	<div class='nav-link'>
-	<a href='profile.html'>Profile</a>
-	</div>
-	<div class='nav-link'>
-	<a href='friends.html'>Friends</a>
-	</div>
-	<div class='nav-link'>
-	<a href='messages.html'>Messages</a>
-	</div>
-	<div class='nav-link'>
-	<a href='map.html'>Map</a>
-	</div>
-	<div class='nav-username'>
-	Welcome back, <strong>username</strong>!<br/><i class="fa fa-sign-out"></i> <a href="#">Logout</a>
-	</div>
-</div>
+<navbar-directive></navbar-directive>
 <body>
 	<div class='content'>
-
-		<div class='box'>
-			<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
+		<div class="box" ng-show="noMessages">
+		<em style="color:black;font-weight:bold" >You have no messages at this time</em>	
 		</div>
-				<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
+		<div class='box' ng-show="showMessages">
+			<div class="newsfeed-update" ng-repeat="message in messages">
+				<div style="float:left;padding:10px"><big><strong>From:</big></strong> {{message.sender}}<br/>
+				<button class="lan-btn" ng-click="addFriend(message.sender, message.id)">{{message.type === 0 ? "Accept Request" : "Reply"}}</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn" ng-click="deleteMessage(message.id)">Delete Message</button><br/><br/></div><br/>
+				<em>{{message.message}}</em><br/><br/>
 		</div>
-		<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
-		</div>
-		<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
-		</div>
-		<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
-		</div>
-		<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
-		</div>
-		<div class="newsfeed-update">
-				<div style="float:left;padding:10px"><img src="../images/default.png" style="border-radius:25px;width:100px;float:left;margin:10px"><big><strong>From:</big></strong> username // <em>online/offline</em><br/>
-				<button class="lan-btn">Reply</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn">Delete Message</button><br/><br/></div><br/>
-				<em>message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. message text here. </em><br/><br/>
-		</div>
-
+				
 		
 	</div>
 
 </div>
-
-
-<script src='../extensions/angular/angular.min.js'></script>
-<script src='../extensions/angular/angular-resource.min.js'></script>
-<script src='../extensions/angular/route.js'></script>
-<script src='../scripts/app.js'></script>
-</body>
-
-</html>

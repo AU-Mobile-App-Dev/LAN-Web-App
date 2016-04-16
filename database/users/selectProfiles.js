@@ -9,7 +9,7 @@ exports.getUsers = function(callback) {
             console.error('CONNECTION error: ', err);
             callback(500);
         } else {
-            connection.query('SELECT username, lat, lon, status FROM users', function (err, rows) {
+            connection.query('SELECT username, lat, lng, zip, user_profile.user_avatar, status FROM users, locations, user_profile WHERE users.id = user_profile.user_id AND users.location_id = locations.id', function (err, rows) {
                 if (err) {
                    callback(500);
                 }
@@ -29,7 +29,7 @@ exports.getUserByName= function(username, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, lat, lon, status FROM users WHERE username = ?", username, function (err, results) {
+            connection.query("SELECT users.id, username, lat, lng, zip, user_profile.user_avatar, status FROM users, locations, user_profile WHERE username = ? AND users.id = user_profile.user_id AND users.location_id = locations.id", username, function (err, results) {
                 if (err) {
                     console.error(err);
                    callback(500);
@@ -47,14 +47,14 @@ exports.getUserByName= function(username, callback){
     });
 }
 
-exports.getUserByLocation= function(zip, callback){
+exports.getUserByLocation= function(zipArray, callback){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
-            connection.query("SELECT username, zip, status FROM users WHERE zip = ?", 
-           zip , function (err, results) {
+            connection.query("SELECT username, user_profile.user_avatar, lat, lng, zip, status FROM users, locations, user_profile WHERE users.id = user_profile.user_id AND users.location_id = locations.id AND locations.zip in (?)", 
+           [zipArray] , function (err, results) {
                 if (err) {
                     console.error(err);
                    callback(500);
@@ -71,4 +71,32 @@ exports.getUserByLocation= function(zip, callback){
         }
     });
 }
+
+exports.getUserCountByLocation= function(zipArray, callback){
+    connectionpool.getConnection(function (err, connection) {
+        if (err) {
+            console.error('CONNECTION error: ', err);
+            callback(503);
+        } else {
+            connection.query("SELECT lat, lng, zip, count(users.username) as users FROM users, locations WHERE locations.zip in (?) AND users.location_id = locations.id GROUP BY (zip);", 
+           [zipArray] , function (err, results) {
+                if (err) {
+                    console.error(err);
+                   callback(500);
+                }//If no results, user does not exist
+                else if (results.length === 0) {
+                    callback(204);
+                }
+                else{
+                  
+                    callback(results);
+                }
+                
+                connection.release();
+            });
+        }
+    });
+}
+
+
 

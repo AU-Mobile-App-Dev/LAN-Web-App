@@ -1,11 +1,12 @@
 angular.module('lanApp')
 
-.service('newsfeedService', function($http, $location){
+.service('newsfeedService', function($http, $location, friendService){
     this.getNewsfeed = function(callback){
-         $http({
+        friendService.getFriendIDs(function(friendIDs){
+            $http({
             method: 'POST',
             url: uri+"/newsfeed",
-            data:{session: sessionStorage.getItem("key")}
+            data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem("userID"), friendIDs: friendIDs}
         }).then(function successCallback(response) {
             console.log(response.data);
             callback(response.data);
@@ -14,13 +15,15 @@ angular.module('lanApp')
             
             console.error(response.data);
         });
+        })
+         
     }
     
     this.postNews = function(message, callback){
          $http({
             method: 'PUT',
             url: uri+"/newsfeed/add",
-            data:{session: sessionStorage.getItem("key"), message: message}
+            data:{session: sessionStorage.getItem("session"), message: message}
         }).then(function successCallback(response) {
             callback(true);
 
@@ -35,7 +38,7 @@ angular.module('lanApp')
         $http({
             method: 'PUT',
             url: uri+"/newsfeed/delete",
-            data:{session: sessionStorage.getItem('key'), newsfeedID: id}
+            data:{session: sessionStorage.getItem('session'), newsfeedID: id}
         }).then(function successCallback(response) {
           
 

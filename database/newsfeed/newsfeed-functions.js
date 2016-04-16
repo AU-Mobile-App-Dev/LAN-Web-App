@@ -53,20 +53,24 @@ exp.getNewsFeedByApikey = function(apikey, callback){
 }
 
 
-exp.getNewsFeedByID = function(username, callback){
+exp.getNewsFeedByID = function(userIDArray, callback){
+    console.log(userIDArray);
      connectionpool.getConnection(function (err, connection) {
         if(err){
             console.error('CONNECTION error: ', err);
             callback(503);
         }
         else{
-        connection.query('SELECT * FROM newsfeed WHERE user_id=(SELECT id FROM users WHERE username = ?)', [username]
+        connection.query('SELECT user_avatar, newsfeed.id, newsfeed.user_id, users.username, newsfeed.timestamp, newsfeed.message, newsfeed.likes FROM newsfeed, users, user_profile WHERE users.id = newsfeed.user_id AND user_profile.user_id = users.id AND newsfeed.user_id in (?) ORDER BY timestamp DESC', [userIDArray]
         , function (err, result) {
             if (err){callback(500)}
              else if(result.length === 0){
                 callback(204);
             }
-            else{callback(result);}
+            else{
+                console.log(result);
+                callback(result);
+            }
 
         });
         }
