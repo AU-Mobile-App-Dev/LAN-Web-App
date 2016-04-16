@@ -105,7 +105,12 @@ module.exports = function(app) {
     app.post('/newsfeed', function(req, res) {
         sessions.getSession(req.body.session, function(result) {
             if (result) {
-                newsfeed.getNewsFeedBySession(req.body.session, function(result) {
+                var userIDArray = [];
+                if((req.body.friendIDs).length > 0){
+                     userIDArray = req.body.friendIDs;
+                }
+                userIDArray.push(req.body.userID);
+                newsfeed.getNewsFeedByID(userIDArray, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);

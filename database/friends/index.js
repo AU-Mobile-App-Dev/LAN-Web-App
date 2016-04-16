@@ -5,6 +5,7 @@ module.exports = {
     addFriend: friendFunctions.addFriend,
     deleteFriend: friendFunctions.deleteFriend,
     getFriendsList: friendFunctions.getFriendsList,
-    sendRequest: friendFunctions.sendRequest
+    sendRequest: friendFunctions.sendRequest,
+    getFriendIDs: friendFunctions.getFriendIDs
 
 };

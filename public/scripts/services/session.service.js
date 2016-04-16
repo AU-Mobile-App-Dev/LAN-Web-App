@@ -2,17 +2,18 @@
  
  .service('sessionService', function($http, $location, authService){
      
-  this.checkSession = function(callback){
+  this.checkSession = function(){
        $http({
             method: 'POST',
             url: uri+"/sessions/verify",
             data:{session: sessionStorage.getItem('session')}
         }).then(function successCallback(response) {
+            console.log(response.data);
             if(response.data.result === "success"){
-                callback(true);
+                //keep the session
             }
             else{
-                callback(false);
+               $location.path('/');
             }
 
         }, function errorCallback(response) {

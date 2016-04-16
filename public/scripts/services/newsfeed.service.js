@@ -1,11 +1,12 @@
 angular.module('lanApp')
 
-.service('newsfeedService', function($http, $location){
+.service('newsfeedService', function($http, $location, friendService){
     this.getNewsfeed = function(callback){
-         $http({
+        friendService.getFriendIDs(function(friendIDs){
+            $http({
             method: 'POST',
             url: uri+"/newsfeed",
-            data:{session: sessionStorage.getItem("session")}
+            data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem("userID"), friendIDs: friendIDs}
         }).then(function successCallback(response) {
             console.log(response.data);
             callback(response.data);
@@ -14,6 +15,8 @@ angular.module('lanApp')
             
             console.error(response.data);
         });
+        })
+         
     }
     
     this.postNews = function(message, callback){

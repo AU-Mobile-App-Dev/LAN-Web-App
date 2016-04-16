@@ -14,9 +14,7 @@ angular.module('lanApp')
                sessionStorage.setItem('session',  response.data.session);
                sessionStorage.setItem('avatar', response.data.avatar);
                sessionStorage.setItem('zip', response.data.zip);
-             
-                $location.path('home');
-                console.log("User logged in, session key= "+response.data.session);
+               $location.path('home');
             }
             else{
                 callback(false);

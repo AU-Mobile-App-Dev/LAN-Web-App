@@ -9,8 +9,7 @@ angular.module('lanApp')
              username: sessionStorage.getItem('username'), 
              friendID: friendID, message:sessionStorage.getItem('username') +" wants to be friends!" }
         }).then(function successCallback(response) {
-            console.log(response.data);
-            //callback(response.data);
+                  callback(true);
 
         }, function errorCallback(response) {
             callback(false);
@@ -24,7 +23,6 @@ angular.module('lanApp')
             url: uri+"/friends/add",
             data:{session: sessionStorage.getItem("session"), username: sessionStorage.getItem('username'), friendName: friendName}
         }).then(function successCallback(response) {
-            console.log(response.data);
             callback(true);
 
         }, function errorCallback(response) {
@@ -37,9 +35,27 @@ angular.module('lanApp')
         $http({
             method: 'POST',
             url: uri+"/friends",
-            data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem('id')}
+            data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem('userID')}
         }).then(function successCallback(response) {
             callback(response.data);
+
+        }, function errorCallback(response) {
+            callback(false);
+            console.error(response.data);
+        });
+    }
+    
+    this.getFriendIDs = function(callback){
+        $http({
+            method: 'POST',
+            url: uri+"/friends/getIDs",
+            data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem('userID')}
+        }).then(function successCallback(response) {
+            var friendIDArray = [];
+            for(i in response.data){
+                friendIDArray.push(response.data[i].friend_id);
+            }
+            callback(friendIDArray);
 
         }, function errorCallback(response) {
             callback(false);

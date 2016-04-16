@@ -58,7 +58,28 @@ module.exports = function(app) {
     app.post('/friends', function(req, res) {
         sessions.getSession(req.body.session, function(result) {
             if (result) {
-                friendFunctions.getFriends(req.body.username, function(result) {
+                friendFunctions.getFriendsList(req.body.userID, function(result) {
+                    errorCodes.responseCodeHandler(result, function(foundError, code) {
+                        if (foundError) {
+                            res.json(code);
+                        } else {
+                            res.json(result);
+                        }
+                    })
+                });
+            } else {
+                res.json({
+                    403: "Unauthenticated request for friends list"
+                });
+            }
+        });
+
+    });
+    
+     app.post('/friends/getIDs', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
+            if (result) {
+                friendFunctions.getFriendIDs(req.body.userID, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);

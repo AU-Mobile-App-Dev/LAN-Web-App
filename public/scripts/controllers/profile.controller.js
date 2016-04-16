@@ -12,6 +12,7 @@ angular.module('lanApp')
 .controller('profileController', function($scope, $routeParams, profileService, friendService){
     $scope.profile = {};
     $scope.writingMessage = false;
+    $scope.requestSent = false;
     
     profileService.getProfilesByUsername($routeParams.username, function(result){
         $scope.profile = result[0];
@@ -23,7 +24,7 @@ angular.module('lanApp')
     }
     $scope.sendFriendRequest = function(){
         friendService.sendRequest($scope.profile.id, function(result){
-            
+            $scope.requestSent = result;
         });
     }
 })

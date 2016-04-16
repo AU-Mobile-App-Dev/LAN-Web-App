@@ -60,6 +60,11 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
             controller: 'messageController'
         })
         
+        .when('/friends', {
+            templateUrl: "friends.html",
+            controller: "friendController"
+        })
+        
         .when('/regSuccess', {
             templateUrl: 'regSuccess.html'
         });
