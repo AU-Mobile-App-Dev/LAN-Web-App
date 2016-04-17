@@ -7,7 +7,7 @@
 		<div class='box' ng-show="showMessages">
 			<div class="newsfeed-update" ng-repeat="message in messages">
 				<div style="float:left;padding:10px"><big><strong>From:</big></strong> {{message.sender}}<br/>
-				<button class="lan-btn" ng-click="addFriend(message.sender, message.id)">{{message.type === 0 ? "Accept Request" : "Reply"}}</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn" ng-click="deleteMessage(message.id)">Delete Message</button><br/><br/></div><br/>
+				<button class="lan-btn" ng-click="addFriend(message.sender, message.id, $index)">{{message.type === 0 ? "Accept Request" : "Reply"}}</button> <button class="lan-btn">View Profile</button><br/><button class="lan-btn" ng-click="deleteMessage(message.id)">Delete Message</button><br/><br/></div><br/>
 				<em>{{message.message}}</em><br/><br/>
 		</div>
 				

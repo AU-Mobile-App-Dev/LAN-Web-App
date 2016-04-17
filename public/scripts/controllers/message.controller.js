@@ -27,11 +27,12 @@ angular.module('lanApp')
         });
     }
     
-    $scope.addFriend = function(friendName, messageID){
+    $scope.addFriend = function(friendName, messageID, messageArrayIndex){
         friendService.addFriend(friendName, function(result1){
             if(result1){
           messageService.deleteMessage(messageID, function(result2){
             if(result2){
+                $scope.messages.splice(messageArrayIndex, 1);
              messageService.getMessages(function(result){
                     if(result.length > 0){
                         $scope.messages = result;

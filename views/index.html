@@ -24,12 +24,12 @@
 		 	<h2><i class="fa fa-arrow-circle-right"></i> Login</h2>
 
 		 	<form>
-		 		Username: <input type="text" ng-model="username" class="login-nav"></input><br/>
-		 		Password: <input type="password" ng-model="password" class="login-nav"></input><br/>
+		 		Username: <input ng-change="resetInvalidLogin()" type="text" ng-model="username" class="login-nav"></input><br/>
+		 		Password: <input ng-change="resetInvalidLogin()" type="password" ng-model="password" class="login-nav"></input><br/>
 		 		<button ng-click="login()" class="login-nav">Login</button>
 		 	</form>
-
-		 	<br/>
+			 	
+		 	<br/><span ng-hide="hideInvalidLogin">Username or password is incorrect</span><br/>
 
 		 	<i class="fa fa-question-circle"></i> Don't have an account?<br/><a href="#/register">Click here to register</a>.<br/><br/>
             <i class="fa fa-question-circle"></i>Are you a developer? Help us by testing out our REST API<br/>

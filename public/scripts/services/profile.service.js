@@ -7,7 +7,6 @@ angular.module('lanApp')
             url: uri+"/users/location",
             data:{session: sessionStorage.getItem("session"), zip: userZip}
         }).then(function successCallback(response) {
-            console.log(response.data);
             callback(response.data);
 
         }, function errorCallback(response) {
@@ -22,7 +21,6 @@ angular.module('lanApp')
             url: uri+"/users/username",
             data:{session: sessionStorage.getItem("session"), username: username}
         }).then(function successCallback(response) {
-            console.log(response.data);
             callback(response.data);
 
         }, function errorCallback(response) {

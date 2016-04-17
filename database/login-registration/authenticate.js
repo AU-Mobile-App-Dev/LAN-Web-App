@@ -9,7 +9,6 @@ var exports = module.exports = {};
 
 exports.authenticate = function(userObject, callback){
     connectionpool.getConnection(function (err, connection) {
-        console.log("authenticating");
         if (err) {
             console.error('CONNECTION error: ', err);
             callback(500);
@@ -19,7 +18,8 @@ exports.authenticate = function(userObject, callback){
                     if (err) {
                         console.log(err);
                     }
-                   else if(passwordFunctions.compareStrings(userObject.password, row[0].password)){
+                   else if(row.length > 0){
+                       if(passwordFunctions.compareStrings(userObject.password, row[0].password)){
                        //Generate session id, insert it to the database and return the response
                        var session = userObject.username + randomstring.generate();
                        session = passwordFunctions.hashString(session).toString();
@@ -29,11 +29,15 @@ exports.authenticate = function(userObject, callback){
                        console.log(resultObject);
                        callback(true, resultObject);
                       
-                   }
+                    }
                     else{
                         
                         callback(false, null);
-                    }   
+                    } 
+                   }
+                   else{
+                       callback(false, null);
+                   }  
                     
                     
                     connection.release();

@@ -18,7 +18,9 @@
 
 		<strong>Status</strong>:{{profile.status === 0 ? "Offline" : "Online"}}<br/><br/>
 
-		<button ng-hide="isCurrentUser" class="lan-btn" ng-click="sendFriendRequest()">Send Friend Request</button> <button class="lan-btn" ng-hide="isCurrentUser">Send Message</button><br/><button ng-hide="isCurrentUser" class="lan-btn">Delete Friend</button> <br/>
+		<button ng-hide="isCurrentUser || isCurrentFriend" class="lan-btn" ng-click="sendFriendRequest()">Send Friend Request</button> 
+		<button class="lan-btn" ng-hide="isCurrentUser">Send Message</button><br/>
+		<button ng-hide="isCurrentUser" class="lan-btn">Delete Friend</button> <br/>
 		<br/><br/>
 
 			<strong>Favorite Genres</strong><br/>
