@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var usersRoutes = require('./routes/users');
 var newsfeedRoutes = require('./routes/newsfeed');
 var friendsRoutes = require('./routes/friends');
+var gameListRoutes = require('./routes/gameList');
 var sessionRoutes = require('./routes/sessions');
 var loginRoutes = require('./routes/login-registration');
 var messageRoutes = require('./routes/messages');
@@ -41,6 +42,7 @@ friendsRoutes(app);
 newsfeedRoutes(app);
 sessionRoutes(app);
 messageRoutes(app);
+gameListRoutes(app);
 
 /*=====Make sure this is the last route function app gets passed to=====*/
 errorRoutes(app);

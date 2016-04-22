@@ -139,6 +139,8 @@ module.exports = function(app) {
         });
     });
     
+    
+    
      app.post('/users/location/count', function(req, res) {
         sessions.getSession(req.body.session, function(result) {
             if (result) {

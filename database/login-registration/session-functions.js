@@ -12,7 +12,7 @@ exports.setSession = function(session, userId){
             if(err) return false;
         } else {
         
-                connection.query("UPDATE users SET session = ? WHERE id= ?", [session, userId], function (err, row) {
+                connection.query("UPDATE users SET session = ?, status = 1 WHERE id= ?", [session, userId], function (err, row) {
                     if (err) {
                         console.log(err);
                     }
@@ -31,7 +31,7 @@ exports.destroySession = function(userID, callback){
             callback(false);
         } else {
         
-                connection.query("UPDATE users SET session = '' WHERE id=?", [userID], function (err, row) {
+                connection.query("UPDATE users SET session = '', status= 0 WHERE id=?", [userID], function (err, row) {
                     if (err) {
                         console.log(err);
                         callback(false);

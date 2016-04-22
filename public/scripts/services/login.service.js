@@ -14,6 +14,7 @@ angular.module('lanApp')
                sessionStorage.setItem('session',  response.data.session);
                sessionStorage.setItem('avatar', response.data.avatar);
                sessionStorage.setItem('zip', response.data.zip);
+               sessionStorage.setItem('unreadMessages', response.data.unread);
                
                friendService.getFriends(function(result){
                        $location.path('home');

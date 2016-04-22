@@ -20,7 +20,7 @@ angular.module('lanApp')
     $scope.postNews = function(){
         newsfeedService.postNews($scope.newsfeedMessage, function(result){
             if(result){
-                    $scope.newsfeedArray.push({
+                    $scope.newsfeedArray.splice(0,0,{
                         message: $scope.newsfeedMessage, 
                         username:sessionStorage.getItem('username'), 
                         id :sessionStorage.getItem('userID'), 

@@ -17,7 +17,7 @@ exports.setupProfile = function(profileObject){
 
 }
 
-exports.editProfile = function(profileObject){
+exports.editProfile = function(profileObject, callback){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
                 console.log(err);
@@ -27,6 +27,7 @@ exports.editProfile = function(profileObject){
                         console.log(err);
                     }
                    else{
+                       callback({result: true});
                    }
                     connection.release();
                 });
@@ -35,3 +36,4 @@ exports.editProfile = function(profileObject){
     });
 
 }
+

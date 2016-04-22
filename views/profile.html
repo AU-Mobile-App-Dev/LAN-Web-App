@@ -11,80 +11,84 @@
 <body>
 	<div class='content'>
 
-		<div ng-hide="writingMessage" class='box'>
+		<div class='box'>
 		<div class="general">
 				<h1>User Profile: {{profile.username}}</h1>
 			<img ng-src="{{profile.user_avatar}}" style="border-radius:25px;height:150px;width:150px"><br/><br/>
 
-		<strong>Status</strong>:{{profile.status === 0 ? "Offline" : "Online"}}<br/><br/>
+		<strong>Status</strong ng-cloak>:{{profile.status === 0 ? "Offline" : "Online"}}<br/><br/>
 
-		<button ng-hide="isCurrentUser || isCurrentFriend" class="lan-btn" ng-click="sendFriendRequest()">Send Friend Request</button> 
-		<button class="lan-btn" ng-hide="isCurrentUser">Send Message</button><br/>
-		<button ng-hide="isCurrentUser" class="lan-btn">Delete Friend</button> <br/>
-		<br/><br/>
+		<button ng-cloak ng-show="isNotCurrentUser" class="lan-btn ng-hide" ng-click="sendFriendRequest()">Send Friend Request</button>
+		<button class="lan-btn ng-hide" ng-show="isNotCurrentUser" ng-click="writingMessage = true;">Send Message</button><br/>
+		<button ng-cloak ng-show="isNotCurrentUser" class="lan-btn ng-hide">Delete Friend</button> 
+		<br/>
+		<br/>
 
-			<strong>Favorite Genres</strong><br/>
-			<ol>
-				<li>Genre</li>
-				<li>Genre</li>
-				<li>Genre</li>
-				<li>Genre</li>
-				<li>Genre</li>
-			</ol>
-			<br/>
 
-			<strong>Favorite Games</strong><br/>
-			<ol>
-				<li>Game</li>
-				<li>Game</li>
-				<li>Game</li>
-				<li>Game</li>
-				<li>Game</li>
-			</ol>
-			<br/>
-
-			<strong>Latest Updates</strong>
-			<div class="latest">
-				Display latest update here. Display latest update here. Display latest update here. Display latest update here. 
+			<strong>What {{profile.username === currentUser ? "you've " : profile.username +" has "}}been playing</strong><br/>
+<div ng-controller="gameListController">
+			<div ng-show="hasGames" class="ng-hide" >
+				<table class="table-container">
+				<tr class="table-header"><th>#</th><th>Title</th><th>Rating</th><th>Summary</th></tr>
+				<tr ng-repeat="game in games" class="table-row"><td>{{$index + 1}}</td><td>{{game.title}}</td><td>{{game.rating}}</td><td>{{game.summary}}</td>
+				<td><button ng-show="isCurrentUser" class="msg-btn ng-hide" ng-click="deleteGame($index, game.id)" style="background-color:#d9534f">Delete</button></td></tr>
+			</table>
 			</div>
-			<div class="latest">
-				Display latest update here. Display latest update here. Display latest update here. Display latest update here. 
-			</div>
-			<div class="latest">
-				Display latest update here. Display latest update here. Display latest update here. Display latest update here. 
-			</div>
-			<div class="latest">
-				Display latest update here. Display latest update here. Display latest update here. Display latest update here. 
-			</div>
+			<div ng-show="showAddGames"  class="ng-hide">
+				<button ng-show="isCurrentUser"class="msg-btn ng-hide" ng-click="addingGame = true;">Add a game</button>
+				</div>
+				
+
+		
 
 
-		</div>
-
-	</div>
 	
-	<div ng-show="writingMessage" class='box user-side'>
-			<h1>To: {{profile.username}}</h1>
-			<form>
-				<br/>
-				<input type="text" class="login-nav" ng-model="newsfeedMessage" placeholder="Let's game sometime!" style="height:100px;"><br/>
-				<input type="submit" ng-click="postNews()" value="Update" class="lan-btn">
-			</form>
-			<br/>
-			<hr/>
-			<big><big><big><i class="fa fa-user"></big></big></big></i> <a href="profile.html">View Profile</a><br/>
-			<big><big><big><i class="fa fa-pencil"></big></big></big></i> <a href="editprofile.html">Edit Profile</a><br/>
-			<big><big><big><i class="fa fa-envelope"></big></big></big></i> <a href="messages.html">View Messages</a><br/>
-			<big><big><big><i class="fa fa-users"></big></big></big></i> <a href="friends.html">View Friends</a><br/>
-			<big><big><big><i class="fa fa-street-view"></big></big></big></i> <a href="map.html">Locate Friends</a><br/><br/>
-			<hr/>
-			<big><big><big><i class="fa fa-sign-out"></big></big></big></i> <a href="#">Logout</a>
-			<br/>
 
-		</div>
+<!-- The Modal -->
+<div ng-show="addingGame" class="modal ng-hide">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 ng-bind="addTitle"></h2>
+    </div>
+    <div class="modal-body input-group" style="background-color: #6a7989">
+     
+						<label class="add-game-label">Title</label>
+						<input class="add-game-input"  ng-model="addTitle" type="text" />
+						<label class="add-game-label">Rating</label>
+						<select class="add-game-input" ng-model="addRating" ng-options="item for item in ratings"></select>
+						<label class="add-game-label">What you think about it</label>
+						<textarea ng-model="addSummary" cols="25" rows="7" class="add-game-input"></textarea>
+			
+    </div>
+    <div class="modal-footer">
+      <button class="msg-btn" ng-click="addGame()">Submit</button><button class="msg-btn" ng-click="addingGame = false;">Cancel</button>
+    </div>
+  </div>
 
 </div>
+</div>
 
+<!-- The Modal -->
+<div ng-show="writingMessage" class="modal ng-hide">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>To: {{profile.username}}</h2>
+    </div>
+    <div class="modal-body">
+      <input ng-bind="messageBody" type="text" class="msg-body"/>
+    </div>
+    <div class="modal-footer">
+      <button class="msg-btn" ng-click="sendMessage()">Submit</button><button class="msg-btn" ng-click="writingMessage = false;">Cancel</button>
+    </div>
+  </div>
+
+</div>
+</div>
+	</div>
 <script src='../extensions/angular/angular.min.js'></script>
 <script src='../extensions/angular/angular-resource.min.js'></script>
 <script src='../extensions/angular/route.js'></script>

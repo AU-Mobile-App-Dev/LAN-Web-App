@@ -1,32 +1,29 @@
 angular.module('lanApp')
 
-.controller('mapProfileController', function($scope, $routeParams, profileService){
-    $scope.profiles = [];
-   
-        
-    profileService.getProfilesByLocation($routeParams.zip, function(result){
-        $scope.profiles = result;
-    });
-    
-})
 
-.controller('profileController', function($scope, $routeParams, profileService, friendService){
+.controller('profileController', function($scope, $routeParams, profileService, friendService, gameListService){
     $scope.profile = {};
     $scope.writingMessage = false;
     $scope.requestSent = false;
+    $scope.currentUser = sessionStorage.getItem('username');
     var storedFriendsList = JSON.parse(localStorage["friendsNames"]);
+    
+    
     profileService.getProfilesByUsername($routeParams.username, function(result){
         $scope.profile = result[0];
-        $scope.isCurrentUser = sessionStorage.getItem('username') === result[0].username;
+        $scope.isNotCurrentUser = $scope.currentUser !== result[0].username;
         $scope.isCurrentFriend = storedFriendsList.includes(result[0].username);  
     })
     
-    $scope.writeMessage = function(){
-        $scope.writingMessage = true;
+    
+    $scope.sendMessage = function(){
+        
     }
+    
     $scope.sendFriendRequest = function(){
         friendService.sendRequest($scope.profile.id, function(result){
             $scope.requestSent = result;
         });
     }
+    
 })

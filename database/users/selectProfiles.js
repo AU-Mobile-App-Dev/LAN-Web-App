@@ -47,6 +47,9 @@ exports.getUserByName= function(username, callback){
     });
 }
 
+
+
+
 exports.getUserByLocation= function(zipArray, callback){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
