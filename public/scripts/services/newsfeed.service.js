@@ -1,6 +1,7 @@
 angular.module('lanApp')
 
 .service('newsfeedService', function($http, $location, friendService){
+    
     this.getNewsfeed = function(callback){
         friendService.getFriendIDs(function(friendIDs){
             $http({
@@ -8,7 +9,7 @@ angular.module('lanApp')
             url: uri+"/newsfeed",
             data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem("userID"), friendIDs: friendIDs}
         }).then(function successCallback(response) {
-            console.log(response.data);
+             localStorage["storedNewsfeed"] = JSON.stringify(response.data);
             callback(response.data);
 
         }, function errorCallback(response) {

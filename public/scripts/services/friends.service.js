@@ -37,6 +37,13 @@ angular.module('lanApp')
             url: uri+"/friends",
             data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem('userID')}
         }).then(function successCallback(response) {
+           var friendArray = [];
+           for(i in response.data){
+               friendArray.push(response.data[i].username);
+           }
+           
+            localStorage["friendsNames"] = JSON.stringify(friendArray);
+            localStorage["friendsList"] = JSON.stringify(response.data);
             callback(response.data);
 
         }, function errorCallback(response) {

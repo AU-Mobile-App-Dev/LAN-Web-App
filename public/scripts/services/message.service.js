@@ -7,8 +7,7 @@ angular.module('lanApp')
             url: uri+"/messages/get",
             data:{session: sessionStorage.getItem("session"), userID: sessionStorage.getItem('userID')}
         }).then(function successCallback(response) {
-            console.log(response.data);
-            callback(response.data);
+           callback(response.data);
 
         }, function errorCallback(response) {
             callback(false);

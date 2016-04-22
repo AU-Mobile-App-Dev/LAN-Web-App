@@ -8,7 +8,6 @@
             url: uri+"/sessions/verify",
             data:{session: sessionStorage.getItem('session')}
         }).then(function successCallback(response) {
-            console.log(response.data);
             if(response.data.result === "success"){
                 //keep the session
             }
@@ -28,10 +27,11 @@
             url: uri+"/sessions/destroy",
             data:{userID: sessionStorage.getItem('userID')}
         }).then(function successCallback(response) {
-               sessionStorage.removeItem('username', response.data.username);
-               sessionStorage.removeItem( 'userID', response.data.userID);
-               sessionStorage.removeItem('session',  response.data.session);
-               sessionStorage.removeItem('avatar', response.data.avatar);
+               sessionStorage.removeItem('username');
+               sessionStorage.removeItem( 'userID');
+               sessionStorage.removeItem('session');
+               sessionStorage.removeItem('avatar');
+               sessionStorage.removeItem('zip');
             console.log("Session destroyed session key stored is now = " + sessionStorage.getItem('session'));
             $location.path('');
 

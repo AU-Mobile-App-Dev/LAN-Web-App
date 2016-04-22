@@ -3,7 +3,7 @@
 	<a href="#/home"><img class='nav-icon' src='../images/lan-logo1.png'></a>
 	</div>
 	<div class='nav-link'>
-	<a href='#/myProfile'>Profile</a>
+	<a href='#/profile/username/{{username}}'>Profile</a>
 	</div>
 	<div class='nav-link'>
 	<a href='#/friends'>Friends</a>
@@ -12,9 +12,9 @@
 	<a href='#/userMap'>Map</a>
 	</div>
 	<div class='nav-link'>
-	<a href='#/messages'>Messages</a>
+	<a href='#/messages'>Messages{{unreadMessages}}</a>
 	</div>
 	<div class='nav-username'>
-	Welcome back, <strong>{{username}}</strong>!<br/><i class="fa fa-sign-out"></i> <button class="lan-btn" ng-click="logout()">Logout</button>
+	Welcome back, <strong ng-cloak>{{username}}</strong>!<br/><i class="fa fa-sign-out"></i> <button class="lan-btn" ng-click="logout()">Logout</button>
 	</div>
 </div>

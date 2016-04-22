@@ -1,6 +1,6 @@
 angular.module('lanApp')
 
-.service('authService', function($http, $location){
+.service('authService', function($http, $location, friendService, newsfeedService){
     
     this.authenticateCreds = function(userObject, callback){
         $http({
@@ -14,7 +14,12 @@ angular.module('lanApp')
                sessionStorage.setItem('session',  response.data.session);
                sessionStorage.setItem('avatar', response.data.avatar);
                sessionStorage.setItem('zip', response.data.zip);
-               $location.path('home');
+               sessionStorage.setItem('unreadMessages', response.data.unread);
+               
+               friendService.getFriends(function(result){
+                       $location.path('home');
+               });
+               
             }
             else{
                 callback(false);

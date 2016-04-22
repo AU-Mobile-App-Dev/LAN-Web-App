@@ -47,6 +47,9 @@ exports.getUserByName= function(username, callback){
     });
 }
 
+
+
+
 exports.getUserByLocation= function(zipArray, callback){
     connectionpool.getConnection(function (err, connection) {
         if (err) {
@@ -73,6 +76,7 @@ exports.getUserByLocation= function(zipArray, callback){
 }
 
 exports.getUserCountByLocation= function(zipArray, callback){
+    console.log(zipArray);
     connectionpool.getConnection(function (err, connection) {
         if (err) {
             console.error('CONNECTION error: ', err);

@@ -10,7 +10,7 @@
 		<em style="color:black;font-weight:bold" >You have no one on your friends list at the moment, check out the map and see who's gaming near you!</em>	
 		</div>
 			<div class="latest" ng-repeat="friend in friends">
-				<img src="{{friend.user_avatar}}" style="border-radius:25px;width:100px"><br><strong>{{friend.username}}</strong>
+				<img src="{{friend.user_avatar}}" style="border-radius:25px;width:100px"><br><strong ng-cloak>{{friend.username}}</strong>
 				<br/><a href="#/profile/username/{{friend.username}}" class="lan-btn">View Profile</a>
 			</div>
 			
