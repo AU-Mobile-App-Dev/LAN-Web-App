@@ -11,7 +11,7 @@ exports.addFriend = function(username, friendName, callback) {
             [username, friendName, username, friendName], function (err, rows) {
                 if (err) {
                     console.log(err);
-                   callback(500);
+                   callback(true);
                 }
                 else{
                      callback(201);
@@ -35,7 +35,7 @@ exports.deleteFriend = function(username, friendName, callback) {
                    callback(500);
                 }
                 else{
-                     callback(201);
+                     callback(true);
                 }
                
                 connection.release();
