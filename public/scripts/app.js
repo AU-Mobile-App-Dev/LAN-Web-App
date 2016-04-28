@@ -55,6 +55,11 @@ angular.module('lanApp', ['ngRoute', 'ngResource'])
             controller: 'profileController'
         })
         
+        .when('/homeProfile', {
+            templateUrl: 'homeProfile.html',
+            controller: 'homeProfileController'
+        })
+        
         .when('/messages', {
             templateUrl: 'messages.html',
             controller: 'messageController'

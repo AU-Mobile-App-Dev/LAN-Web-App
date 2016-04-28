@@ -153,7 +153,7 @@ module.exports = function(app) {
 
     });
     
-    app.post('/friends/remove', function(req, res) {
+    app.post('/friends/delete', function(req, res) {
         sessions.getSession(req.body.session, function(result) {
             if (result) {
                friendFunctions.deleteFriend(req.body.username, req.body.friendName, function(result){

@@ -8,36 +8,20 @@
 			<img ng-src="{{userAvatar}}" class="profile-image" style="border-radius:25px"/><br/><br/>
 			Update Your Status:<br/>
 			<form>
-				 <select name="current-game" class="login-nav">
-  <option value="">Populate current games here</option>
-  <option value="">Populate current games here</option>
-  <option value="">Populate current games here</option>
-  <option value="">Populate current games here</option>
-</select><br/>
+				<br/>
 				<input type="text" class="login-nav" ng-model="newsfeedMessage" placeholder="Comments..." style="height:100px;"><br/>
 				<input type="submit" ng-click="postNews()" value="Update" class="lan-btn">
 			</form>
-			<br/>
-			<hr/>
-			<big><big><big><i class="fa fa-user"></big></big></big></i> <a href="profile.html">View Profile</a><br/>
-			<big><big><big><i class="fa fa-pencil"></big></big></big></i> <a href="editprofile.html">Edit Profile</a><br/>
-			<big><big><big><i class="fa fa-envelope"></big></big></big></i> <a href="messages.html">View Messages</a><br/>
-			<big><big><big><i class="fa fa-users"></big></big></big></i> <a href="friends.html">View Friends</a><br/>
-			<big><big><big><i class="fa fa-street-view"></big></big></big></i> <a href="map.html">Locate Friends</a><br/><br/>
-			<hr/>
-			<big><big><big><i class="fa fa-sign-out"></big></big></big></i> <a href="#">Logout</a>
-			<br/>
-
 		</div>
 
 
 		<div  class='box'>
 			<div  ng-hide="hideNews" class="newsfeed-update" ng-animate="'animate'" ng-repeat="newsItem in newsfeedArray">
-				<img ng-src={{newsItem.user_avatar}} style="border-radius:25px;width:100px;float:left;margin:10px"><h3>{{newsItem.username}} // <em>{{newsItem.status === 0 ? "Offline" : "Online"}}</em></h3>
-				<button ng-hide="isCurrentUser(newsItem.username)" class="lan-btn">Send Message</button>
+				<a href="#/profile/username/{{newsItem.username}}" ><img ng-src={{newsItem.user_avatar}} style="border-radius:25px;width:100px;float:left;margin:10px"></a>
+				<h3>{{newsItem.username}} // <em>{{newsItem.status === 0 ? "Offline" : "Online"}}</em></h3>
+				
+				<em>{{newsItem.message}}</em>
 				<button ng-show="isCurrentUser(newsItem.username)" ng-click=deleteNews($index) class="lan-btn">Delete Post</button>
-				<a href="#/profile/username/{{newsItem.username}}" ng-hide="isCurrentUser(newsItem.username)" class="lan-btn">View Profile</a><br/>
-				<em>{{newsItem.message}}</em><br/><br/>
 		</div>
 
 	</div>

@@ -28,10 +28,10 @@ module.exports = function(app) {
 
     });
     
-    app.get('/api/newsfeed/id=:newsItemID/api=:apikey', function(req, res) {
+    app.get('/api/newsfeed/:newsItemID/api=:apikey', function(req, res) {
         sessions.verifyKey(req.params.apikey, function(result) {
             if (result) {
-                newsfeed.getNewsFeedByID(req.params.newsItemID, function(result) {
+                newsfeed.getNewsfeedItemByApikey(req.params.newsItemID, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);
@@ -111,6 +111,28 @@ module.exports = function(app) {
                 }
                 userIDArray.push(req.body.userID);
                 newsfeed.getNewsFeedByID(userIDArray, function(result) {
+                    errorCodes.responseCodeHandler(result, function(foundError, code) {
+                        if (foundError) {
+                            res.json(code);
+                        } else {
+                            res.send(result);
+                        }
+                    });
+                });
+            } else {
+                res.json({
+                    403: "Unauthenticated API request for newsfeed"
+                });
+            }
+        });
+
+    });
+    
+     app.post('/newsfeed/like', function(req, res) {
+        sessions.getSession(req.body.session, function(result) {
+            if (result) {
+                
+                newsfeed.likePost(req.body.newsfeedID, req.body.userID, function(result) {
                     errorCodes.responseCodeHandler(result, function(foundError, code) {
                         if (foundError) {
                             res.json(code);

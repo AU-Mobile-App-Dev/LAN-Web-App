@@ -1,6 +1,7 @@
 angular.module('lanApp')
 
 .service('friendService', function($http){
+    
     this.sendRequest = function(friendID, callback){
         $http({
             method: 'POST',
@@ -9,7 +10,8 @@ angular.module('lanApp')
              username: sessionStorage.getItem('username'), 
              friendID: friendID, message:sessionStorage.getItem('username') +" wants to be friends!" }
         }).then(function successCallback(response) {
-                  callback(true);
+            console.log(response.data);
+                  callback(response.data);
 
         }, function errorCallback(response) {
             callback(false);
@@ -21,6 +23,20 @@ angular.module('lanApp')
         $http({
             method: 'POST',
             url: uri+"/friends/add",
+            data:{session: sessionStorage.getItem("session"), username: sessionStorage.getItem('username'), friendName: friendName}
+        }).then(function successCallback(response) {
+            callback(true);
+
+        }, function errorCallback(response) {
+            callback(false);
+            console.error(response.data);
+        });
+    }
+    
+    this.deleteFriend = function(friendName, callback){
+        $http({
+            method: 'POST',
+            url: uri+"/friends/delete",
             data:{session: sessionStorage.getItem("session"), username: sessionStorage.getItem('username'), friendName: friendName}
         }).then(function successCallback(response) {
             callback(true);

@@ -11,7 +11,7 @@ exp.getNewsFeedBySession = function(session, callback){
             callback(503);
         }
         else{
-        connection.query('SELECT newsfeed.id, user_id, username, timestamp, message, likes FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE session = ?) AND users.session = ? ORDER BY timestamp DESC', [session, session]
+        connection.query('SELECT newsfeed.id, user_id, username, timestamp, message FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE session = ?) AND users.session = ? ORDER BY timestamp DESC', [session, session]
         , function (err, results) {
             if (err){
                 callback(500);
@@ -36,7 +36,7 @@ exp.getNewsFeedByApikey = function(apikey, callback){
             callback(503);
         }
         else{
-        connection.query('SELECT newsfeed.id, newsfeed.timestamp, users.username, newsfeed.message, newsfeed.likes FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE api_key = ?) AND users.id = newsfeed.user_id', [apikey]
+        connection.query('SELECT newsfeed.id, newsfeed.timestamp, users.username, newsfeed.message FROM newsfeed, users WHERE user_id=(SELECT id FROM users WHERE api_key = ?) AND users.id = newsfeed.user_id', [apikey]
         , function (err, result) {
             console.log(result + " " + result.length);
             if (err){callback(500);}
@@ -61,7 +61,7 @@ exp.getNewsFeedByID = function(userIDArray, callback){
             callback(503);
         }
         else{
-        connection.query('SELECT user_avatar, newsfeed.id, newsfeed.user_id, users.username, newsfeed.timestamp, newsfeed.message, newsfeed.likes FROM newsfeed, users, user_profile WHERE users.id = newsfeed.user_id AND user_profile.user_id = users.id AND newsfeed.user_id in (?) ORDER BY timestamp DESC', [userIDArray]
+        connection.query('SELECT user_avatar, newsfeed.id, newsfeed.user_id, users.username, newsfeed.timestamp, newsfeed.message FROM newsfeed, users, user_profile WHERE users.id = newsfeed.user_id AND user_profile.user_id = users.id AND newsfeed.user_id in (?) ORDER BY timestamp DESC', [userIDArray]
         , function (err, result) {
             if (err){callback(500)}
              else if(result.length === 0){
@@ -76,6 +76,29 @@ exp.getNewsFeedByID = function(userIDArray, callback){
         }
         connection.release();
       
+    });   
+}
+
+exp.getNewsfeedItemByApikey = function(newsfeedItemID, callback){
+     connectionpool.getConnection(function (err, connection) {
+        if(err){
+           callback(503);
+        }
+        else{
+       
+        connection.query('SELECT * FROM newsfeed WHERE id= ?',
+        [newsfeedItemID], function (err, results) {
+            if (err){ callback(500);
+                console.log(err);
+            }
+            else{
+                callback(results);
+            }
+        });
+        }
+        connection.release();
+        
+
     });   
 }
 
@@ -169,3 +192,4 @@ exp.removeNewsfeedItemBySession = function(newsfeedObject, callback){
 
     });   
 }
+

@@ -98,15 +98,37 @@ exports.sendRequest= function(requestObject, callback){
             console.error('CONNECTION error: ', err);
             callback(503);
         } else {
+            connection.query("SELECT * FROM messages WHERE sender = ? AND receiver = ?", 
+ [requestObject.sender, requestObject.receiver], function (err, results) {
+                if (err) {
+                    console.error(err);
+                   callback(500);
+                }
+                else if(results.length > 0){
+                      callback(false);
+                }else{insertRequest(requestObject, callback);}
+                
+                connection.release();
+            });
+        }
+    });
+}
+
+insertRequest = function(requestObject, callback){
+    connectionpool.getConnection(function (err, connection) {
+        if (err) {
+            console.error('CONNECTION error: ', err);
+            callback(503);
+        } else {
             connection.query("INSERT INTO `messages` (sender, receiver, message, sent, type) VALUES (?, ?, ?, ?, 0)", 
  [requestObject.sender, requestObject.receiver, requestObject.message, requestObject.timestamp], function (err, results) {
                 if (err) {
                     console.error(err);
                    callback(500);
                 }
-                else{
-                      callback(201);
-                }
+                else if(results.affectedRows > 0){
+                      callback(true);
+                }else{callback(false);}
                 
                 connection.release();
             });
