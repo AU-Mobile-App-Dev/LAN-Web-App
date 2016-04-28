@@ -8,8 +8,14 @@ angular.module('lanApp')
     
     $scope.login = function(){
         var userObject = {username: $scope.username, password: $scope.password};
+        if($scope.password === ""){
+            $scope.hideInvalidLogin = result;
+        }else{
+            
+        
         authService.authenticateCreds(userObject, function(result){
             $scope.hideInvalidLogin = result;
         });
+    }
     }
 })

@@ -48,4 +48,18 @@ angular.module('lanApp')
             console.error(response.data);
         });
     }
+    
+    this.likePost = function(postID, userID, callback){
+        $http({
+            method: 'POST',
+            url: uri+"/newsfeed/like",
+            data:{session: sessionStorage.getItem('session'), newsfeedID: id, userID: userID}
+        }).then(function successCallback(response) {
+          callback(response.result);
+
+        }, function errorCallback(response) {
+            
+            console.error(response.data);
+        });
+    }
 })

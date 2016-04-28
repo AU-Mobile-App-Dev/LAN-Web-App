@@ -9,7 +9,7 @@ angular.module('lanApp')
     $scope.isCurrentUser = ($routeParams.username === sessionStorage.getItem('username'));
     $scope.games = [];
   
-      gameListService.getGameList($routeParams.username, function(result){
+      gameListService.getGameList($routeParams.username || sessionStorage.getItem('username'), function(result){
           if(result.length >= 5){
              $scope.showAddGames = false;
           }else if(result.length > 0){

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>LAN Social Network - Connecting Gamers</title>
-<link href='../css/lan-style.css' rel='stylesheet'>
-<link href='../css/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
 
-
-</head>
 <navbar-directive></navbar-directive>
 <body>
 	<div class='content'>
@@ -18,14 +10,16 @@
 
 		<strong>Status</strong ng-cloak>:{{profile.status === 0 ? "Offline" : "Online"}}<br/><br/>
 
-		<button ng-cloak ng-show="isNotCurrentUser" class="lan-btn ng-hide" ng-click="sendFriendRequest()">Send Friend Request</button>
-		<button class="lan-btn ng-hide" ng-show="isNotCurrentUser" ng-click="writingMessage = true;">Send Message</button><br/>
-		<button ng-cloak ng-show="isNotCurrentUser" class="lan-btn ng-hide">Delete Friend</button> 
+		<button ng-cloak ng-show="!isCurrentFriend" class="lan-btn ng-hide" ng-click="sendFriendRequest()">Send Friend Request</button>
+		<div class="w3-container w3-red w3-round ng-hide" ng-show="requestAlreadySent" >You already sent a friend request to {{profile.username}}!</div>
+		<div class="w3-container w3-green w3-round ng-hide" ng-show="requestSent">Friend request sent!</div>
+		<button class="lan-btn"  ng-click="writingMessage = true;">Send Message</button><br/>
+		<button ng-show="isCurrentFriend" ng-click="deleteFriend()" class="lan-btn ng-hide">Delete Friend</button> 
 		<br/>
 		<br/>
 
 
-			<strong>What {{profile.username === currentUser ? "you've " : profile.username +" has "}}been playing</strong><br/>
+			<strong>What {{profile.username}} has been playing</strong><br/>
 <div ng-controller="gameListController">
 			<div ng-show="hasGames" class="ng-hide" >
 				<table class="table-container">

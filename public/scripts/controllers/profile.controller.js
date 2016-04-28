@@ -1,18 +1,22 @@
 angular.module('lanApp')
 
 
-.controller('profileController', function($scope, $routeParams, profileService, friendService, gameListService){
+.controller('profileController', function($scope, $routeParams, $location, profileService, friendService, gameListService){
     $scope.profile = {};
     $scope.writingMessage = false;
     $scope.requestSent = false;
-    $scope.currentUser = sessionStorage.getItem('username');
+    $scope.requestAlreadySent = false;
     var storedFriendsList = JSON.parse(localStorage["friendsNames"]);
+    
+    if($routeParams.username === sessionStorage.getItem('username')){
+        $location.path('homeProfile');
+    } 
     
     
     profileService.getProfilesByUsername($routeParams.username, function(result){
         $scope.profile = result[0];
-        $scope.isNotCurrentUser = $scope.currentUser !== result[0].username;
-        $scope.isCurrentFriend = storedFriendsList.includes(result[0].username);  
+        $scope.isCurrentFriend = storedFriendsList.includes($routeParams.username);
+    
     })
     
     
@@ -22,8 +26,17 @@ angular.module('lanApp')
     
     $scope.sendFriendRequest = function(){
         friendService.sendRequest($scope.profile.id, function(result){
-            $scope.requestSent = result;
+            if(result){
+                 $scope.requestSent = true;
+            }else{$scope.requestAlreadySent = true;}
+           
         });
+    }
+    
+    $scope.deleteFriend = function(){
+        friendService.deleteFriend($routeParams.username, function(result){
+            
+        })
     }
     
 })

@@ -12,11 +12,13 @@
 
 		 	<h2><i class="fa fa-arrow-circle-right"></i> API Documentation</h2>
 		 	<br/>
-           
-            <div ng-repeat="item in documentationContent">
-		 	<i class="fa fa-question-circle"></i> {{item.content}} <a href={{item.link}}>here</a> or <a href="#/">Go back</a>
-          
-		 </div>
+           <table>
+			   <tr ng-repeat="item in documentationContent" ng-class-odd="'odd'" ng-class-even="'even'" >
+				   <td><i class="fa fa-question-circle"></i></td><td >{{item.content}}</td><td>{{item.example}}<a style="font-weight:bold;font-size:20px" href={{item.link}}>here</a></td>
+			   </td></tr>
+           </table>
+		   <br/>
+            <i class="fa fa-arrow-circle-left"></i><a href="#/">Go back</a>
 	</div>
     
     

@@ -4,13 +4,13 @@ var exports = module.exports = {};
 exports.responseCodeHandler = function(code, callback){
     switch(code) {
     case 200:
-        callback(false, {200: "Success"});
+        callback(false, {result: true, 200: "Success"});
         break;
     case 201:
-        callback(true, {201: "The request has been fulfilled and resource has been updated."});
+        callback(true, {result: true, 201: "The request has been fulfilled and resource has been updated."});
         break;
     case 204:
-        callback(true, {204: "Your request successfully processed but no content could be found."});
+        callback(true, {result: false, 204: "Your request successfully processed but no content could be found."});
         break;
     case 400:
         callback(true, {400: "The request could not be understood by the server due to malformed syntax."});
