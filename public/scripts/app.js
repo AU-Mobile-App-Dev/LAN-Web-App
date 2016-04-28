@@ -1,4 +1,4 @@
-var uri = "http://localhost:5000";
+var uri = "http://lan-social.herokuapp.com";
  
 angular.module('lanApp', ['ngRoute', 'ngResource'])
 
