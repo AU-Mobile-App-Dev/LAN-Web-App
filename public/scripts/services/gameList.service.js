@@ -2,12 +2,11 @@ angular.module('lanApp')
 
 .service('gameListService', function($http){
     
-    var session = sessionStorage.getItem("session");
       this.getGameList = function(username, callback){
         $http({
             method: 'POST',
             url: uri+"/gamelist",
-            data:{session: session, username: username}
+            data:{session: sessionStorage.getItem("session"), username: username}
         }).then(function successCallback(response) {
             console.log(response.data);
             callback(response.data);
@@ -22,7 +21,7 @@ angular.module('lanApp')
         $http({
             method: 'POST',
             url: uri+"/gamelist/add",
-            data:{session: session, 
+            data:{session: sessionStorage.getItem("session"), 
             userID: sessionStorage.getItem('userID'), rating: gameObject.rating,
              summary: gameObject.summary, title: gameObject.title}
         }).then(function successCallback(response) {
@@ -39,7 +38,7 @@ angular.module('lanApp')
         $http({
             method: 'PUT',
             url: uri+"/gamelist",
-            data:{session: session, 
+            data:{session: sessionStorage.getItem("session"), 
             id: gameObject.id, rating: gameObject.rating,
              summary: gameObject.summary, title: gameObject.title}
         }).then(function successCallback(response) {
@@ -56,7 +55,7 @@ angular.module('lanApp')
         $http({
             method: 'POST',
             url: uri+"/gamelist/delete",
-            data:{session:session, id: gameID}
+            data:{session:sessionStorage.getItem("session"), id: gameID}
         }).then(function successCallback(response) {
             console.log(response.data);
             callback(response.data.result);
