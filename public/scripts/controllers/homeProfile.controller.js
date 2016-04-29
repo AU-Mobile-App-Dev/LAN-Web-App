@@ -3,6 +3,7 @@ angular.module('lanApp')
 .controller('homeProfileController', function($scope, gameListService){
     $scope.username = sessionStorage.getItem('username');
     $scope.userAvatar = sessionStorage.getItem('avatar');
+    $scope.showAddGames = true;
     
     $scope.games = [];
   
