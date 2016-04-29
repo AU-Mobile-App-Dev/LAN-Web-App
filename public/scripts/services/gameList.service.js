@@ -26,7 +26,7 @@ angular.module('lanApp')
              summary: gameObject.summary, title: gameObject.title}
         }).then(function successCallback(response) {
             console.log(response.data);
-            callback(response.data.result);
+            callback(true);
 
         }, function errorCallback(response) {
             callback(false);
@@ -58,7 +58,7 @@ angular.module('lanApp')
             data:{session:sessionStorage.getItem("session"), id: gameID}
         }).then(function successCallback(response) {
             console.log(response.data);
-            callback(response.data.result);
+            callback(true);
 
         }, function errorCallback(response) {
             callback(false);
