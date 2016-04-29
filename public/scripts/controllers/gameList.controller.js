@@ -6,10 +6,9 @@ angular.module('lanApp')
     $scope.ratings = ["Ridin' the hype train!", "Excellent", "Good", "Mediocre", "Meh", "Don't waste your time"];
     $scope.addingGame = false;
     $scope.addTitle = "Game Title";
-    $scope.isCurrentUser = ($routeParams.username === sessionStorage.getItem('username'));
     $scope.games = [];
   
-      gameListService.getGameList($routeParams.username || sessionStorage.getItem('username'), function(result){
+      gameListService.getGameList($routeParams.username, function(result){
           if(result.length >= 5){
              $scope.showAddGames = false;
           }else if(result.length > 0){
@@ -21,24 +20,5 @@ angular.module('lanApp')
            
     });
     
-    $scope.addGame = function(){
-        var gameObject = {
-            title: $scope.addTitle,
-            rating: $scope.addRating,
-            summary: $scope.addSummary
-        }
-        gameListService.addGame(gameObject, function(result){
-            if(result){
-               $scope.addingGame = false;
-               $scope.games.push(gameObject);
-                
-            }
-        })
-    }
     
-    $scope.deleteGame = function(index, gameID){
-        gameListService.deleteGame(gameID, function(result){
-            if(result){$scope.games.splice(index, 1);}
-        })
-    }
 })
