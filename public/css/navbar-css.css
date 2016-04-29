@@ -1,18 +1,101 @@
-html{
-	box-sizing:border-box;
+html {
+    box-sizing: border-box;
 }
-.container{
-	display:flex;
-	align-items:center;
+.container {
+    display: flex;
+    align-items: center;
 }
-.navbar{
-	background-color:black;
-	color:white;
-	width:100%;
+.navbar {
+    background-color: black;
+    color: white;
+    width: 100%;
 }
+.nav-icon {
+    display: flex;
+    height: 150px;
+    width: 150px;
+}
+/* Portrait and Landscape */
 
-.nav-icon{
-	display:flex;
-	height:150px;
-	width:150px;
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait */
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Landscape */
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait and Landscape */
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait */
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Landscape */
+
+@media screen and (device-width: 320px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait and Landscape */
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait */
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Landscape */
+
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait and Landscape */
+
+@media (min-device-width: 800px) and (max-device-width: 1280px) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Portrait */
+
+@media (max-device-width: 800px) and (orientation: portrait) {
+    .nav-link {
+        display: block;
+    }
+}
+/* Landscape */
+
+@media (max-device-width: 1280px) and (orientation: landscape) {
+    .nav-link {
+        display: block;
+    }
 }
