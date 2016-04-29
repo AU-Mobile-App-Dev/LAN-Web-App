@@ -4,6 +4,7 @@ angular.module('lanApp')
     $scope.username = sessionStorage.getItem('username');
     $scope.userAvatar = sessionStorage.getItem('avatar');
     $scope.showAddGames = true;
+    $scope.ratings = ["Ridin' the hype train!", "Excellent", "Good", "Mediocre", "Meh", "Don't waste your time"];
     
     $scope.games = [];
   

@@ -3,7 +3,7 @@ angular.module('lanApp')
 .controller('gameListController', function($routeParams, $scope, gameListService){
     $scope.showAddGames = true;
     $scope.hasGames = false;
-    $scope.ratings = ["Ridin' the hype train!", "Excellent", "Good", "Mediocre", "Meh", "Don't waste your time"];
+    
     $scope.addingGame = false;
     $scope.addTitle = "Game Title";
     $scope.games = [];
