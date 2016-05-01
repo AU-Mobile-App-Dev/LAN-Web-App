@@ -5,7 +5,7 @@ angular.module('lanApp')
     this.authenticateCreds = function(userObject, callback){
         $http({
             method: 'POST',
-            url: uri+"/authenticate",
+            url: "/authenticate",
             data:{username: userObject.username, password:userObject.password}
         }).then(function successCallback(response) {
             if(response.data.result){
