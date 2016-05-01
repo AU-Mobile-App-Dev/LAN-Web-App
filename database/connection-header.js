@@ -14,7 +14,7 @@ var exports = module.exports = {};
 //  });
 //  return connectionpool;
 //  }
- ///
+ 
 
 exports.getConnection = function() {
     mysql = require('mysql'),
